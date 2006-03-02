@@ -18,19 +18,19 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require './option.rb'
-require './group.rb'
-
+require 'lconf/option.rb'
+require 'lconf/group.rb'
+# A config
 class Config < Group
 
 	GlobalLConfPath='/etc/lucidity'
 	LocalLConfPath=File.expand_path('~/.lucidity')
-# create a new config. 
-# First lucidity attempts to find a path from the LCONF_PATH environment var
-# A global path is then attempted (default: /etc/lucidity). 
-# Then a per-user path is attempted (default: ~/.lucidity).
-# If each of the directories is not found, lucidity tries to create it. 
-# If both attempts at creating a directory fail an exception is raised
+	# Create a new config. 
+	# 1. Attempt to find a path from the LCONF_PATH environment variable
+	# 2. Try a global path (default: /etc/lucidity). 
+	# 3. Try a per-user path (default: ~/.lucidity).
+	# If each of the directories is not found, lucidity tries to create it. 
+	# If we don't have a directory to work with an exception is raised
 	def initialize(name)
 		path=ENV['LCONF_PATH']
 		path=Config::GlobalLConfPath if path==nil

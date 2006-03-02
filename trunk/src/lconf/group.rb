@@ -18,11 +18,11 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require './lconf.rb'
-require './option.rb'
-
+require 'lconf'
+# A group
 class Group 
 	attr_reader :name
+	# Create a new group
 	def initialize(parent, name)
 		if (parent == nil)
 			@name = name
@@ -32,6 +32,7 @@ class Group
 		end
 		Dir.mkdir(@name) unless File.directory?(@name)
 	end
+	# Search for groups within this group
 	def searchGroup(pattern)
 		if pattern.kind_of?(Regexp)
 			#again, laziness is a key factor :) 
@@ -40,6 +41,7 @@ class Group
 			}
 		end
 	end	
+	# Search for options within this group
 	def searchOption(pattern)
 		if pattern.kind_of?(Regexp)
 			`find #{@name} -type f`.each { |i|
@@ -53,6 +55,7 @@ class Group
 			}
 		end
 	end
+	#delete a group (recursively)
 	def delete
 		#Now why should I bother implementing this 
 		raise "Error deleting #{@name}" unless Kernel.system("rm -rf #{name}")

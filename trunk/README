@@ -27,3 +27,5 @@ cfg.searchOption(/tes/) { |x| puts x.value }
 
 # Delete an option
 opt.delete
+
+To install just copy all files in src to your ruby lib directory (e.g. /usr/lib/ruby-1.8/
