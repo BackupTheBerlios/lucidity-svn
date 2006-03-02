@@ -1,0 +1,29 @@
+LConf is the part of Lucidity that handles configuration storage and retrieval.
+It uses plain text files to store configuration options. That means each option you store will be a string when you retrieve it. That means you might have to call its to_i (or whatever else) method to convert the option back to your desired type.
+
+Here is a simple example
+
+# you need this first
+require 'lconf'
+# create a new config. 
+# First lucidity attempts to find a path from the LCONF_PATH environment var
+# A global path is then attempted (default: /etc/lucidity). 
+# Then a per-user path is attempted (default: ~/.lucidity).
+# If each of the directories is not found, lucidity tries to create it. 
+# If both attempts at creating a directory fail an exception is raised
+cfg=Config.new('foo')
+
+# Create a new group as a child of cfg)
+grp=Group.new(cfg,'bau')
+
+# Create a new option as a child of opt
+opt=Option.new(grp,'test','some value here')
+# Write the option's value to disk
+opt.write
+# Search for an option with a Regexp. You can also search 
+# for a Group like this with cfg.searchGroup. 
+# You can then iterate through results
+cfg.searchOption(/tes/) { |x| puts x.value }
+
+# Delete an option
+opt.delete
