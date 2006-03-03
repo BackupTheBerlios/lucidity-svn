@@ -27,20 +27,19 @@ class Config < Group
 	LocalLConfPath=File.expand_path('~/.lucidity')
 	# Create a new config. 
 	# 1. Attempt to find a path from the LCONF_PATH environment variable
-	# 2. Try a global path (default: /etc/lucidity). 
-	# 3. Try a per-user path (default: ~/.lucidity).
+	# 2. Try a per-user path (default: ~/.lucidity).
+	# 3. Try a global path (default: /etc/lucidity). 
 	# If each of the directories is not found, lucidity tries to create it. 
 	# If we don't have a directory to work with an exception is raised
 	def initialize(name)
 		path=ENV['LCONF_PATH']
-		path=Config::GlobalLConfPath if path==nil
+		path=Config::LocalLConfPath if path==nil
 		begin
-			Dir.mkdir(path) unless File.exist?(path) 
+			Dir.mkdir(path) unless File.directory?(path) 
 		rescue
-			path=Config::LocalLConfPath 
+			path=Config::GlobalLConfPath 
 		end
-		Dir.mkdir(path) unless File.exist?(path)
-		Dir.open(path)	
+		Dir.mkdir(path) unless File.directory?(path)
 		@name = path+File::Separator+name
 		@parent = nil
 		Dir.mkdir(@name) unless File.exist?(@name) 

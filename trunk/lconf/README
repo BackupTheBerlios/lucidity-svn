@@ -6,11 +6,6 @@ Here is a simple example
 # you need this first
 require 'lconf'
 # create a new config. 
-# First lucidity attempts to find a path from the LCONF_PATH environment var
-# A global path is then attempted (default: /etc/lucidity). 
-# Then a per-user path is attempted (default: ~/.lucidity).
-# If each of the directories is not found, lucidity tries to create it. 
-# If both attempts at creating a directory fail an exception is raised
 cfg=Config.new('foo')
 
 # Create a new group as a child of cfg)

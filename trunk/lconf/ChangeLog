@@ -1,2 +1,4 @@
+lconf 0.0.1a (Revision 10):
+	-Small patch to change the order of searched paths
 lconf 0.0.1(Revision 9):
 	-First released version
