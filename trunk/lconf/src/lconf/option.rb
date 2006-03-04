@@ -50,6 +50,9 @@ class Option
 	def close
 		self.write
 	end
+	def Option.exist?(parent,name)
+		File.exist?(parent.name + File::Directory + name)
+	end
 	# Delete an option
 	def delete
 		File.delete(@name)

@@ -55,6 +55,9 @@ class Group
 			}
 		end
 	end
+	def Group.exist?(parent,name)
+		File.directory?(parent.name+ File::Separator + name)
+	end
 	#delete a group (recursively)
 	def delete
 		#Now why should I bother implementing this 
