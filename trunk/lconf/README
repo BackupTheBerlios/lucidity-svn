@@ -1,7 +1,7 @@
 LConf is the part of Lucidity that handles configuration storage and retrieval.
 It uses plain text files to store configuration options. That means each option you store will be a string when you retrieve it. That means you might have to call its to_i (or whatever else) method to convert the option back to your desired type.
 
-Here is a simple example
+Here is a simple example. More examples can be found in the source. As Obi Wan Kenobi would put it: "Use the source, Luke!" ;)
 
 # you need this first
 require 'lconf'
@@ -13,14 +13,14 @@ grp=Group.new(cfg,'bau')
 
 # Create a new option as a child of opt
 opt=Option.new(grp,'test','some value here')
-# Write the option's value to disk
-opt.write
+
 # Search for an option with a Regexp. You can also search 
 # for a Group like this with cfg.searchGroup. 
 # You can then iterate through results
 cfg.searchOption(/tes/) { |x| puts x.value }
 
-# Delete an option
-opt.delete
+# Delete an option. Groups can be deleted as well, and they will be deleted
+# recursively
+opt.delete!
 
 To install just copy all files in src to your ruby lib directory (e.g. /usr/lib/ruby-1.8/

@@ -23,6 +23,11 @@ require 'lconf'
 class Group 
 	attr_reader :name
 	# Create a new group
+	# The following example creates a group within a config:
+	#
+	# require 'lconf'
+	# cfg=Config.new('test')
+	# grp=Group.new(cfg,'test2')
 	def initialize(parent, name)
 		if (parent == nil)
 			@name = name
@@ -32,7 +37,16 @@ class Group
 		end
 		Dir.mkdir(@name) unless File.directory?(@name)
 	end
+
 	# Search for groups within this group
+	# Each of the results are yielded to the caller.
+	# Here's an example that prints the names of all groups
+	# matching a certain pattern. Because Config inherits this method
+	# you can search within a config as well, as in the next example:
+	#
+	# require 'lconf'
+	# cfg=Config.new('existing_config')
+	# cfg.searchGroup(/foo/) { |grp| puts grp.name }
 	def searchGroup(pattern)
 		if pattern.kind_of?(Regexp)
 			#again, laziness is a key factor :) 
@@ -41,7 +55,10 @@ class Group
 			}
 		end
 	end	
+
 	# Search for options within this group
+	# Searching for an option is exactly like searching for a group,
+	# both operations can be performed on a group or on a config as well
 	def searchOption(pattern)
 		if pattern.kind_of?(Regexp)
 			`find #{@name} -type f`.each { |i|
@@ -55,11 +72,28 @@ class Group
 			}
 		end
 	end
+
+	# does the group with a certain name exist within the specified
+	# parent group
+	# Here's a small example that checks if the 'example' group exists
+	# within the config 'test' and prints the returned value:
+	#
+	# require 'lconf'
+	# cfg = Config.new('test')
+	# puts Group.exist?(cfg,'example')
 	def Group.exist?(parent,name)
 		File.directory?(parent.name+ File::Separator + name)
 	end
-	#delete a group (recursively)
-	def delete
+
+	# delete a group (recursively). At some later point a less dangerous
+	# form will be implemented that only deletes the directory
+	# Here's an example
+	#
+	# require 'lconf
+	# cfg = Config.new('test')
+	# grp = Group.new('test')
+	# grp.delete!
+	def delete!
 		#Now why should I bother implementing this 
 		raise "Error deleting #{@name}" unless Kernel.system("rm -rf #{name}")
 	end	
