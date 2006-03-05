@@ -1,0 +1,7 @@
+LObject is the part of Lucidity that takes care of letting one application have acces to another application's objects. It uses UNIX sockets for communication and the DRuby module for doing all the things I couldn't possibly program ;)
+
+Like LConf, this is another no-brainer, with under 30 lines of code.
+
+Please see the examples/ directory for a sample client and server. Milestone 0 (whenever it arrives) will be the best example you can get your hands on.
+
+Just copy the file src/lobject.rb to /usr/lib/ruby/1.x and you're all set. And remember, it needs drb (distributed ruby).
