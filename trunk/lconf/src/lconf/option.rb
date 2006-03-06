@@ -90,7 +90,7 @@ class Option
 	# Look in group.rb for an example of how this works for a group
 	# as this works in the same fashion
 	def Option.exist?(parent,name)
-		File.exist?(parent.name + File::Directory + name)
+		File.exist?(parent.name + File::Separator + name)
 	end
 	# Delete an option. For good. Forever ;)
 	def delete!
