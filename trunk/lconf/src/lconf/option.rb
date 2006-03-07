@@ -58,7 +58,7 @@ class Option
 		}
 		opt=Option.new(group,name,@value)
 		at_exit { 
-			opt.write
+			opt.write if Group.exist?(group)
 		}
 		return opt
 	end
