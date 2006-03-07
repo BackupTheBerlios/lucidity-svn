@@ -81,8 +81,12 @@ class Group
 	# require 'lconf'
 	# cfg = Config.new('test')
 	# puts Group.exist?(cfg,'example')
-	def Group.exist?(parent,name)
-		File.directory?(parent.name+ File::Separator + name)
+	#
+	# This also works for an allready existing group
+	# (for example to see that another process hasn't deleted it)
+	def Group.exist?(parent,name=nil)
+		File.directory?(parent.name+ File::Separator + name) if (name != nil)
+		File.directory?(parent.name) if (name == nil)
 	end
 
 	# delete a group (recursively). At some later point a less dangerous

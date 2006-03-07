@@ -75,9 +75,24 @@ class Option
 	def write
 		@f=File.open(@name,"w")
 		if (@value != nil)
-			@value.each { |val|
-				@f.puts(val)
-			}	
+			case @value
+			when File
+				@f.puts(File::expand_path(@value.path))
+			when String
+				@f.puts(@value)
+			when Numeric
+				@f.puts(@value)
+			when IO 
+				@value.readlines.each { |val|
+					@f.puts(val)
+				}
+			when Process
+				@f.puts(val.pid.to_s)
+			when Array
+				@value.each { |val|
+					@f.puts(val)
+				}	
+			end
 		end
 		@f.close
 	end
