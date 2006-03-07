@@ -1,0 +1,5 @@
+LClipboard is the module of Lucidity that takes care of holding a permanent clipboard where the user may store any object which he can later retrieve at any point.
+
+Again, a small piece of code, very simple, I don't want to implement very complex things at this point. No comments yet, just use the source Luke, I'll write the comments (with examples included) before releasing 0.0.1
+
+No installer yet, just copy to your ruby file path
