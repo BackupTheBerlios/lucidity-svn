@@ -50,7 +50,7 @@ class Group
 	def searchGroup(pattern)
 		if pattern.kind_of?(Regexp)
 			#again, laziness is a key factor :) 
-			`find #{@name} -type d`.each { |i|
+			`find #{@name}/* -type d 2>/dev/null`.each { |i|
 				i.chomp!
 				yield(Group.new(nil,i)) if i=~ pattern
 			}
@@ -62,7 +62,7 @@ class Group
 	# both operations can be performed on a group or on a config as well
 	def searchOption(pattern)
 		if pattern.kind_of?(Regexp)
-			`find #{@name} -type f`.each { |i|
+			`find #{@name} -type f 2>/dev/null`.each { |i|
 				i.chomp!
 				if i=~pattern
 					tmp=Group.new(nil,File.dirname(i))
