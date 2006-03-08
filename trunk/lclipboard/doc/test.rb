@@ -1,7 +1,5 @@
 require 'lclipboard'
-str="Some String"
+puts "Please write some text to add to the clipboard. When done press enter"
+str=gets
 clip=LClipboard.new
 clip.copy(str)
-clip.each { |x| 
-	print x, ": ", clip.paste(x) ,"\n"
-}
