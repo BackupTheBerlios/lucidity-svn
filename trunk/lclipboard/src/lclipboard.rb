@@ -19,53 +19,40 @@
 #
 
 require 'lconf'
-module LClipboard
-	def copy
-		cfg=Config.new('lclipboard')
-		begin 
-			@id=rand(999999)
-			group_name='object'+@id.to_s 
-		end while Group.exist?(cfg,group_name)
-		grp=Group.new(cfg,group_name)
-		Option.new(grp,'content',self)
-		#puts @id
-		return @id
+class LClipboard
+	DefaultClipboard='clipboard'
+	def initialize(name=DefaultClipboard)
+		@cfg=Config.new(name)
 	end
-	def LClipboard.paste(id)
-		cfg=Config.new('lclipboard')
+	def copy(object)
+		begin 
+			id=rand(999999)
+			group_name='object'+id.to_s 
+		end while Group.exist?(@cfg,group_name)
+		grp=Group.new(@cfg,group_name)
+		Option.new(grp,'content',object)
+		return id
+	end
+	def paste(id)
 		group_name='object'+id.to_s
-		grp=Group.new(cfg,group_name)
-		raise "No such object in clipboard: #{id}" if (Group.exist?(cfg,group_name)==false)
+		grp=Group.new(@cfg,group_name)
+		raise "No such object in clipboard: #{id}" if (Group.exist?(@cfg,group_name)==false)
 		Option.open(grp,'content').value
 	end
-	def LClipboard.delete!(id)
-		cfg=Config.new('lclipboard')
+	def delete!(id)
 		group_name='object'+id.to_s
-		grp=Group.new(cfg,group_name)
+		grp=Group.new(@cfg,group_name)
 		grp.delete!
 	end
-end
-
-class String
-	include LClipboard
-end
-
-class Numeric
-	include LClipboard
-end
-
-class File
-	include LClipboard
-end
-
-class IO
-	include LClipboard
-end
-
-class Process
-	include LClipboard
-end
-
-class Array
-	include LClipboard
+	def each
+		@cfg.searchGroup(/object/) { |x|
+			id=x.name.gsub(/.*object/,"").to_i
+			yield id
+		}
+	end
+	def clear!
+		self.each { |i|
+			delete!(i)
+		}
+	end
 end

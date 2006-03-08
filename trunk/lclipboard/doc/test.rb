@@ -1,6 +1,7 @@
-require './lclipboard.rb'
-f=File.open('x.txt')
-id = f.copy
-puts id
-puts LClipboard.paste(id)
-LClipboard.delete!(id)
+require 'lclipboard'
+str="Some String"
+clip=LClipboard.new
+clip.copy(str)
+clip.each { |x| 
+	print x, ": ", clip.paste(x) ,"\n"
+}
