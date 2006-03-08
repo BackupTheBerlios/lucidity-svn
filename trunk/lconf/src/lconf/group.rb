@@ -51,6 +51,7 @@ class Group
 		if pattern.kind_of?(Regexp)
 			#again, laziness is a key factor :) 
 			`find #{@name} -type d`.each { |i|
+				i.chomp!
 				yield(Group.new(nil,i)) if i=~ pattern
 			}
 		end
