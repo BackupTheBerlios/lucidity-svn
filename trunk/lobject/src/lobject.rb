@@ -27,16 +27,37 @@ class LObject
 		@default_path=Option.open(@cfg,'default_path').value[0]
 		Dir.mkdir(@default_path) unless File.directory?(@default_path)
 		@path=@default_path+File::Separator+application
+		@threads=ThreadGroup.new()
+		@objects=Hash.new()
 	end
-	def registerObject(name,object)
+	def registerWaitingObject(name,object)
 		Dir.mkdir(@path) unless File.directory?(@path)
 		object_path='drbunix://'+@path+File::Separator+name
-		DRb.start_service(object_path,object)
+		@objects[name].stop_serivce if @objects[name]
+		@objects[name] = DRb.start_service(object_path,object)
 		DRb.thread.join
+	end
+	def registerObject(name,object)
+		thr=Thread.new {
+			Dir.mkdir(@path) unless File.directory?(@path)
+			object_path='drbunix://'+@path+File::Separator+name
+			@objects[name].stop_serivce if @objects[name]
+			@objects[name] = DRb.start_service(object_path,object)
+			DRb.thread.join
+		}
+		@threads.add(thr)
 	end
 	def getObject(name)
 		object_path='drbunix://'+@path+File::Separator+name
 		obj = DRbObject.new(nil,object_path)
 		return obj
+	end
+	def each
+		`find #{@path} -type s 2>/dev/null`.each { |obj_path|
+			obj_path.chomp!
+			obj_path='drbunix://'+obj_path
+			obj=DRbObject.new(nil,obj_path)
+			yield obj
+		}
 	end
 end
