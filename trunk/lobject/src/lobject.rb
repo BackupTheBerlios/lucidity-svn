@@ -22,27 +22,26 @@ require 'lconf'
 require 'drb'
 
 class LObject
+#	include DRb::DRbUndumped
 	def initialize(application)
+#		DRb.start_service
 		@cfg=Config.new('lobject')
 		@default_path=Option.open(@cfg,'default_path').value[0]
 		Dir.mkdir(@default_path) unless File.directory?(@default_path)
 		@path=@default_path+File::Separator+application
 		@threads=ThreadGroup.new()
-		@objects=Hash.new()
 	end
 	def registerWaitingObject(name,object)
 		Dir.mkdir(@path) unless File.directory?(@path)
 		object_path='drbunix://'+@path+File::Separator+name
-		@objects[name].stop_serivce if @objects[name]
-		@objects[name] = DRb.start_service(object_path,object)
+		DRb.start_service(object_path,object)
 		DRb.thread.join
 	end
 	def registerObject(name,object)
 		thr=Thread.new {
 			Dir.mkdir(@path) unless File.directory?(@path)
 			object_path='drbunix://'+@path+File::Separator+name
-			@objects[name].stop_serivce if @objects[name]
-			@objects[name] = DRb.start_service(object_path,object)
+			DRb.start_service(object_path,object)
 			DRb.thread.join
 		}
 		@threads.add(thr)
