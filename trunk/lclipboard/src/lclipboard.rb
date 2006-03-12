@@ -26,9 +26,9 @@ class LClipboard
 	end
 	def copy(object)
 		begin 
-			id=rand(999999)
+			id=self.length
 			group_name='object'+id.to_s 
-		end while Group.exist?(@cfg,group_name)
+		end
 		grp=Group.new(@cfg,group_name)
 		Option.new(grp,'content',object)
 		return id
@@ -37,7 +37,7 @@ class LClipboard
 		group_name='object'+id.to_s
 		grp=Group.new(@cfg,group_name)
 		raise "No such object in clipboard: #{id}" if (Group.exist?(@cfg,group_name)==false)
-		Option.open(grp,'content').value
+		Option.open(grp,'content').value[0]
 	end
 	def delete!(id)
 		group_name='object'+id.to_s
@@ -49,6 +49,11 @@ class LClipboard
 			id=x.name.gsub(/.*object/,"").to_i
 			yield id
 		}
+	end
+	def length
+		len=0
+		@cfg.searchGroup(/object/) { len+=1 }
+		len
 	end
 	def clear!
 		self.each { |i|
