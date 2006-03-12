@@ -43,7 +43,7 @@ LObject.new('milestone0')
 
 finalDir=nil
 
-$:.each { |dir|
+$:.reverse_each { |dir|
 	tmpDir = (dir+File::Separator+'milestone0')
 	if (File.directory?(tmpDir)) 
 		finalDir=tmpDir.dup
