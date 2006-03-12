@@ -17,41 +17,11 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-class ChatMessage
-	def initialize(user,message)
-		@user, @message = user, message
-	end
-	def to_s
-		"<#{@user}>: #{@message}"
-	end
-end
-
-class QuitMessage < ChatMessage
-	def to_s
-		"<<< Quits: #{@user} [#{@message}]"
-	end
-end
-
-class MeMessage < ChatMessage
-	def to_s
-		"* #{@user} #{@message}"
-	end
-end
-
-class NickMessage < ChatMessage
-	def to_s
-		"- #{@user} is now known as #{@message}"
-	end
-end
-
-class JoinMessage < ChatMessage
-	def to_s
-		">>> Joins #{@user}"
-	end
-end
-
-class WhoMessage < ChatMessage
-	def to_s
-		"* Existing users: #{@message}"
-	end
-end
+require 'milestone0/message'
+require 'milestone0/screen'
+require 'lobject'
+require 'lconf'
+screen_name=ARGV[0]
+scr=Screen.new
+screens=LObject.new('milestone0/screens')
+screens.registerWaitingObject(screen_name,scr)

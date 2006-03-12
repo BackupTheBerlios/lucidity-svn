@@ -1,0 +1,60 @@
+#!/usr/bin/ruby -w
+#
+# Copyright (C) 2006 Eugen Minciu
+#
+# This file is part of Lucidity.
+#
+# Lucidity is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Lucidity is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Lucidity; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+
+require 'lconf'
+require 'lobject'
+cfg=Config.new('milestone0')
+puts "Welcome to Lucidity Milestone 0"
+puts ""
+puts "The first milestone of Lucidity features a local chat application."
+puts "This is one instance of this application. It is actually composed of"
+puts "two applications, split using the utiliity splitvt"
+puts ""
+puts "The application in the lower part of the window sends a message."
+puts "Then, for each connected window you receive that message, along with"
+puts "the user it originated from."
+puts ""
+puts "Please do not ask me to extend this application in any way."
+puts "It's just a testbed for Lucidity's modules."
+puts ""
+print "Please enter your desired name: "	
+name=gets
+name.chomp!
+screen_name='screen'+rand(10000).to_s
+LObject.new('milestone0')
+
+finalDir=nil
+
+$:.each { |dir|
+	tmpDir = (dir+File::Separator+'milestone0')
+	if (File.directory?(tmpDir)) 
+		finalDir=tmpDir.dup
+	end
+}
+raise "milestone0 directory not found in path" if (finalDir==nil)
+
+tmpExec=''
+tmpExec+='splitvt -bottom -s 20 -upper '
+tmpExec+='"ruby ' + finalDir + File::Separator + 'test.rb ' + screen_name + '"'
+tmpExec+=' -lower '
+tmpExec+='"ruby ' + finalDir + File::Separator + 'client.rb ' + name + ' ' + screen_name + '"'
+
+Kernel.exec(tmpExec)

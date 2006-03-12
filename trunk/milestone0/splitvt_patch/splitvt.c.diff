@@ -1,0 +1,22 @@
+71a72,73
+> int stbottom=0;			/* Start in the bottom vt? */ 
+> 
+93a96
+> 	fprintf(stderr, "\t-bottom\t\t\tStarts in the lower window\n");
+154c157
+< 	while ( (i=getopt(argc, argv, "n:u:l:r:s:t:vh")) != EOF )
+---
+> 	while ( (i=getopt(argc, argv, "n:u:l:r:b:s:t:vh")) != EOF )
+178a182,187
+> 			case 'b': if ( strcmp(optarg, "ottom") ==0) 
+> 					  stbottom=1;
+> 				  else
+> 					  print_usage(argv[0]);
+> 				  break;
+> 
+312c321,323
+< 	thisfd=topfd;
+---
+> 	if (stbottom)
+> 		thisfd=bottomfd;
+> 	else thisfd=topfd;
