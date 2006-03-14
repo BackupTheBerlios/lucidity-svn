@@ -19,95 +19,73 @@
 #
 
 # An option
+require 'yaml'
 class Option 
 	attr_reader :name, :value
 	# Create a new option, overwrites any existing option
+	#
 	# Here's a small example. Remember the option is automatically
 	# written there's no need to call write/close yourself
 	#
-	# require 'lconf'
-	# cfg=Config.new('test')
-	# opt=Option.new(cfg,'foo','some value here')
-	def initialize(group,name,value=nil)
-		@name=group.name + File::Separator + name
-		@value = value
+	#  require 'lconf'
+	#  cfg=Config.new('test')
+	#  opt=Option.new(cfg,'foo','some value here')
+	def initialize(group,name,value)
+		@name=group.name + File::Separator + name + '.yaml'
+		@value=value
 		self.write
 	end
 	# Opens an existing option file
+	#
 	# Nothing evil should happen if it doesn't exist.
-	# Also, unlike previous versions, the contents of the file
-	# will not be blanked when opening it ( thus multiple objects,
-	# from various processes can open the same option)
+	#
 	# Any changes to the value will be written to the option file when the
 	# program exits (even if it's a user break (^C))
 	#
-	# require 'lconf'
-	# cfg=Config.new('test')
-	# opt=Option.new('foo')
-	# opt.value=5
+	#  require 'lconf'
+	#  cfg=Config.new('test')
+	#  opt=Option.open('foo')
+	#  opt.value=5
 	#
 	# In the previous example the option is automatically saved, even
-	# though opt.write was not explicitly called. If you this should be
-	# controllable through some variable, write me an email and let
-	# me know.
+	# though opt.write was not explicitly called. If you think this 
+	# behaviour should be  controllable through some variable, 
+	# write me an email and let me know.
 	def Option.open(group,name)
-		@name=group.name + File::Separator + name
-		@value=IO.readlines(@name)
-		@value.each { |val|
-			val.chomp!
-		}
+		@name=group.name + File::Separator + name + '.yaml'
+		@value=YAML.load(File.open(@name))
 		opt=Option.new(group,name,@value)
 		at_exit { 
 			opt.write if Group.exist?(group)
 		}
 		return opt
 	end
+
 	# Save changes to an option. 
+	#
 	# If the file allready exists it won't be overwritten until
 	# you call this, or your program exits (when this is automatically 
 	# called)
+	#
 	# In the near future I plan to make this even more atomic, writing 
 	# to a temporary file, deleting the existing file and then moving the
 	# temporary file to where the current file is. But for now, this
 	# will do.
-	# Since options are automatically save this is usefull when you
+	#
+	# Since options are automatically saved this is useful when you
 	# want to save options while your application is still running.
 	def write
-		@f=File.open(@name,"w")
-		if (@value != nil)
-			case @value
-			when File
-				@f.puts(File::expand_path(@value.path))
-			when String
-				@f.puts(@value)
-			when Numeric
-				@f.puts(@value)
-			when IO 
-				@value.readlines.each { |val|
-					@f.puts(val)
-				}
-			when Process
-				@f.puts(val.pid.to_s)
-			when Array
-				@value.each { |val|
-					@f.puts(val)
-				}	
-			end
-		end
-		@f.close
-	end
-	# alias to write. should this exist? should it have another name?
-	def close
-		self.write
+		File.open(@name,"w") { |f| YAML.dump(@value,f) }
 	end
 	# Returns a truth value stating wether or not an option exists
 	# in a certain group.
+	#
 	# Look in group.rb for an example of how this works for a group
 	# as this works in the same fashion
 	def Option.exist?(parent,name)
 		File.exist?(parent.name + File::Separator + name)
 	end
-	# Delete an option. For good. Forever ;)
+	# Delete an option. For good. Forever. Yes, really ;)
 	def delete!
 		File.delete(@name)
 	end
