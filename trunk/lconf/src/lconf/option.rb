@@ -30,11 +30,31 @@ class Option
 	#  require 'lconf'
 	#  cfg=Config.new('test')
 	#  opt=Option.new(cfg,'foo','some value here')
+	#
+	# keep in mind that you can store all kinds of objects and 
+	# that their structure will be preserved.
+	#
+	# For example:
+	#  require 'lconf'
+	#  class TestObject
+	#  	  def initialize
+	#	  	  @value='foo'
+	#		  @value2='bar'
+	#	  end
+	#  end
+	#  t1=TestObject.new
+	#  cfg=Config.new('test')
+	#  opt=Option.new(cfg,'foo',t1)
+	#
+	#  opt2=Option.open(cfg,'test')
+	#  puts opt2.value
+	#  puts opt2.value2
 	def initialize(group,name,value)
 		@name=group.name + File::Separator + name + '.yaml'
 		@value=value
 		self.write
 	end
+
 	# Opens an existing option file
 	#
 	# Nothing evil should happen if it doesn't exist.
