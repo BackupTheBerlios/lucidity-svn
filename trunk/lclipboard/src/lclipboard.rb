@@ -37,7 +37,7 @@ class LClipboard
 		group_name='object'+id.to_s
 		grp=Group.new(@cfg,group_name)
 		raise "No such object in clipboard: #{id}" if (Group.exist?(@cfg,group_name)==false)
-		Option.open(grp,'content').value[0]
+		Option.open(grp,'content').value
 	end
 	def delete!(id)
 		group_name='object'+id.to_s
