@@ -39,16 +39,55 @@ class Config < Group
 	#
 	#  cfg=Config.new('test_config')
 	def initialize(name)
-		path=ENV['LCONF_PATH']
-		path=Config::LocalLConfPath if path==nil
-		begin
-			Dir.mkdir(path) unless File.directory?(path) 
-		rescue
-			path=Config::GlobalLConfPath 
+		paths=Array.new
+		if self.is_a?(GlobalConfig)
+			paths << GlobalLConfPath
+		elsif self.is_a?(LocalConfig)
+			paths << LocalLConfPath
+		else 
+			if (ENV['LCONF_PATH'] != nil)
+				ENV['LCONF_PATH'].split(':').each {|p| 
+					paths << p 
+				}
+			end
+			paths << GlobalLConfPath
+			paths << LocalLConfPath
+			paths.uniq
 		end
-		Dir.mkdir(path) unless File.directory?(path)
-		@name = path+File::Separator+name
-		@parent = nil
-		Dir.mkdir(@name) unless File.exist?(@name) 
+		paths.each { |path|
+			parent=File.dirname(path)
+			if (File.directory?(path) and File.writable?(path)) 
+				done=true
+			elsif (File.directory?(parent) and File.writable?(parent))
+				Dir.mkdir(path)
+				done=true
+			end
+			begin 
+				@name = path+File::Separator+name
+				Dir.mkdir(@name) unless File.exist?(@name) 
+				return
+			end if done
+		}
+		raise "Unable to create config"
+	end
+end
+class GlobalConfig < Config
+	# Create a new global config. This will only try the path
+	# GlobalLConfPath. Useful for opening/creating global
+	# configuration directories
+	#
+	# It works the same as a Config
+	def initialize(name)
+		super
+	end
+end
+class LocalConfig < Config
+	# Create a new local config. This will only try the path
+	# LocalLConfPath. Useful for opening/creating local 
+	# configuration directories
+	#
+	# It works the same as a Config
+	def initialize(name)
+		super
 	end
 end
