@@ -54,6 +54,7 @@ class Config < Group
 			paths << LocalLConfPath
 			paths.uniq
 		end
+		done=false
 		paths.each { |path|
 			parent=File.dirname(path)
 			if (File.directory?(path) and File.writable?(path)) 
@@ -68,7 +69,7 @@ class Config < Group
 				return
 			end if done
 		}
-		raise "Unable to create config"
+		raise "Unable to create config" if (!done)
 	end
 end
 class GlobalConfig < Config
