@@ -51,8 +51,7 @@ $:.reverse_each { |dir|
 }
 raise "milestone0 directory not found in path" if (finalDir==nil)
 
-tmpExec=''
-tmpExec+='splitvt -bottom -s 20 -upper '
+tmpExec='splitvt -bottom -s 20 -upper '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'test.rb ' + screen_name + '"'
 tmpExec+=' -lower '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'client.rb ' + name + ' ' + screen_name + '"'

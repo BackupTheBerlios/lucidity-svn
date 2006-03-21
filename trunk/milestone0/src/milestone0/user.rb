@@ -17,14 +17,16 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+
+# A user
 class User
+	attr_reader :name
 	def initialize(user)
 		@name=user
 	end
-	def getName
-		@name
-	end
-	def setName(user)
+
+	# change the user's name.
+	def name=(user)
 		@name=user
 	end
 end

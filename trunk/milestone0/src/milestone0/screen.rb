@@ -17,10 +17,15 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+
+# A screen (the upper part of the application)
 class Screen 
+	# display an error message
 	def displayErrorMessage(message)
 		puts "ERROR: " + message
 	end
+
+	#display any type of message you can think of
 	def displayMessage(user,line)
 		line.strip!
 		if line =~ /^\/quit/	

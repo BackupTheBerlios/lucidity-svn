@@ -19,6 +19,7 @@
 #
 
 require 'lclipboard'
+# a chat message
 class ChatMessage
 	def initialize(user,message)
 		@user, @message = user, message
@@ -28,36 +29,42 @@ class ChatMessage
 	end
 end
 
+# a quit message
 class QuitMessage < ChatMessage
 	def to_s
 		"<<< Quits: #{@user} [#{@message}]"
 	end
 end
 
+# a /me message
 class MeMessage < ChatMessage
 	def to_s
 		"* #{@user} #{@message}"
 	end
 end
 
+# a /nick message
 class NickMessage < ChatMessage
 	def to_s
 		"- #{@user} is now known as #{@message}"
 	end
 end
 
+# a /join message
 class JoinMessage < ChatMessage
 	def to_s
 		">>> Joins #{@user}"
 	end
 end
 
+# a /who message
 class WhoMessage < ChatMessage
 	def to_s
 		"* Existing users: #{@message}"
 	end
 end
 
+# a /list message
 class ListMessage < ChatMessage
 	def to_s
 		clip=LClipboard.new
@@ -75,19 +82,21 @@ class ListMessage < ChatMessage
 	end
 end	
 
+# a /clear message
 class ClearMessage < ChatMessage
 	def to_s
-		clip=LClipboard.new
-		clip.clear!
 		"!!! #{@user} cleared the clipboard"
 	end
 end
 
+# a /copy_last message
 class CopyLastMessage < ChatMessage
 	def to_s
 		"+ #{@user} copied the last message to the clipboard."
 	end
 end
+
+#a /copy message
 class CopyMessage < ChatMessage
 	def to_s
 		"+ #{@user} copied '#{@message}' to the clipboard."
