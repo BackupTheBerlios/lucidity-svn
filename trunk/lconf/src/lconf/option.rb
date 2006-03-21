@@ -22,6 +22,7 @@
 require 'yaml'
 class Option 
 	attr_reader :name, :value
+	attr_writer :value
 	# Create a new option, overwrites any existing option
 	#
 	# Here's a small example. Remember the option is automatically
@@ -103,7 +104,7 @@ class Option
 	# Look in group.rb for an example of how this works for a group
 	# as this works in the same fashion
 	def Option.exist?(parent,name)
-		File.exist?(parent.name + File::Separator + name)
+		File.exist?(parent.name + File::Separator + name + '.yaml')
 	end
 	# Delete an option. For good. Forever. Yes, really ;)
 	def delete!
