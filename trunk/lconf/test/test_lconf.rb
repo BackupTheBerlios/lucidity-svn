@@ -94,7 +94,13 @@ class TestOption < Test::Unit::TestCase
 		assert_equal(opt.value.value,'foo')
 		assert_equal(opt.value.value2,'bar')
 	end
-	
+	def testOption_new_autosave
+		opt=Option.new(@cfg,'test',0)
+		opt.value=1
+		opt.write
+		opt2=Option.open(@cfg,'test')
+		assert_equal(opt.value,opt2.value)
+	end	
 	def testOption_Option_open
 		opt=Option.new(@cfg,'test',TestObject.new())
 		assert_equal(Option.open(@cfg,'test').value.value,'foo')
