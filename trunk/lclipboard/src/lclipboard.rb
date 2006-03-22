@@ -38,6 +38,7 @@ require 'lconf'
 # 1. Before any sort of operation you must call LClipboard#reload
 # 2. After any operation that writes you must  call LClipboard#commit
 class LClipboard
+	attr_reader :items
 	attr_writer :items 
 	DefaultClipboard='clipboard'
 	DefaultLocation='lclipboard'
@@ -54,6 +55,7 @@ class LClipboard
 	# This enables other functions to imediately see modifications to
 	# the clipboard
 	def commit
+		@opt.value=@items
 		@opt.write
 	end
 
@@ -80,8 +82,8 @@ class LClipboard
 		if Option.exist?(@cfg,name)
 			reload
 		else 
-			@items=[]
-			@opt=Option.new(@cfg,name,@items)
+			@opt=Option.new(@cfg,name,[])
+			@items=@opt.value
 		end
 	end
 	
@@ -138,7 +140,7 @@ class LClipboard
 	def delete!(id)
 		reload
 		@items.delete_at(id)
-		@opt.write
+		commit
 	end
 
 	# Iterate through each object in the clipboard and yield each one.
@@ -154,7 +156,6 @@ class LClipboard
 	end
 
 	# Returns the number of times in the clipboard.
-	# (0 for an empty clipboard, so there should be no problem).
 	#
 	#  require 'lclipboard'
 	#  clip=LClipboard.new
