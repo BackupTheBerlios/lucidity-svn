@@ -22,6 +22,7 @@
 require 'lconf'
 require 'lobject'
 cfg=Config.new('milestone0')
+system("clear")
 puts "Welcome to Lucidity Milestone 0"
 puts ""
 puts "The first milestone of Lucidity features a local chat application."
