@@ -74,12 +74,13 @@ class Option
 	# write me an email and let me know.
 	def Option.open(group,name)
 		@name=group.name + File::Separator + name + '.yaml'
+		
 		@value=YAML.load(File.open(@name))
-		opt=Option.new(group,name,@value)
+		@option=Option.new(group,name,@value)
 		at_exit { 
-			opt.write if Group.exist?(group)
+			@option.write if Group.exist?(group)
 		}
-		return opt
+		return @option
 	end
 
 	# Save changes to an option. 
