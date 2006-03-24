@@ -19,10 +19,9 @@
 #
 
 # A config
-require 'lconf/option'
-require 'lconf/group'
-
-class Config < Group
+require 'group'
+require 'option'
+class LConfig < Group
 
 	GlobalLConfPath='/etc/lucidity'
 	LocalLConfPath=File.expand_path('~/.lucidity')
@@ -38,12 +37,12 @@ class Config < Group
 	# 
 	# Here's a simple example:
 	#
-	#  cfg=Config.new('test_config')
+	#  cfg=LConfig.new('test_config')
 	def initialize(name)
 		paths=Array.new
-		if self.is_a?(GlobalConfig)
+		if self.is_a?(GlobalLConfig)
 			paths << GlobalLConfPath
-		elsif self.is_a?(LocalConfig)
+		elsif self.is_a?(LocalLConfig)
 			paths << LocalLConfPath
 		else 
 			if (ENV['LCONF_PATH'] != nil)
@@ -73,22 +72,22 @@ class Config < Group
 		raise "Unable to create config" if (!done)
 	end
 end
-class GlobalConfig < Config
+class GlobalLConfig < LConfig
 	# Create a new global config. This will only try the path
 	# GlobalLConfPath. Useful for opening/creating global
 	# configuration directories
 	#
-	# It works the same as a Config
+	# It works the same as a LConfig
 	def initialize(name)
 		super
 	end
 end
-class LocalConfig < Config
+class LocalLConfig < LConfig
 	# Create a new local config. This will only try the path
 	# LocalLConfPath. Useful for opening/creating local 
 	# configuration directories
 	#
-	# It works the same as a Config
+	# It works the same as a LConfig
 	def initialize(name)
 		super
 	end

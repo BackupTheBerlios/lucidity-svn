@@ -20,6 +20,7 @@
 
 # An option
 require 'yaml'
+require 'group'
 class Option 
 	attr_reader :name, :value
 	attr_writer :value
@@ -29,7 +30,7 @@ class Option
 	# written there's no need to call write/close yourself
 	#
 	#  require 'lconf'
-	#  cfg=Config.new('test')
+	#  cfg=LConfig.new('test')
 	#  opt=Option.new(cfg,'foo','some value here')
 	#
 	# keep in mind that you can store all kinds of objects and 
@@ -44,7 +45,7 @@ class Option
 	#	  end
 	#  end
 	#  t1=TestObject.new
-	#  cfg=Config.new('test')
+	#  cfg=LConfig.new('test')
 	#  opt=Option.new(cfg,'foo',t1)
 	#
 	#  opt2=Option.open(cfg,'test')
@@ -64,7 +65,7 @@ class Option
 	# program exits (even if it's a user break (^C))
 	#
 	#  require 'lconf'
-	#  cfg=Config.new('test')
+	#  cfg=LConfig.new('test')
 	#  opt=Option.open('foo')
 	#  opt.value=5
 	#

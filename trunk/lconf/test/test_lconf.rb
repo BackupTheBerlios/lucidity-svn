@@ -19,27 +19,28 @@
 #
 
 require 'test/unit'
-require 'lconf'
 require 'yaml'
+require 'rubygems'
+require_gem 'lconf'
 
-class TestConfig < Test::Unit::TestCase
-	def testConfig_new
-		cfg=Config.new('test')
+class TestLConfig < Test::Unit::TestCase
+	def testLConfig_new
+		cfg=LConfig.new('test')
 		assert File.directory?(cfg.name)
 	end
-	def testGlobalConfig_new
-		cfg=GlobalConfig.new('test')
+	def testGlobalLConfig_new
+		cfg=GlobalLConfig.new('test')
 		assert File.directory?(cfg.name)
 	end
-	def testLocalConfig_new
-		cfg=LocalConfig.new('test')
+	def testLocalLConfig_new
+		cfg=LocalLConfig.new('test')
 		assert File.directory?(cfg.name)
 	end
 end
 
 class TestGroup < Test::Unit::TestCase
 	def setup
-		@cfg=Config.new('test')
+		@cfg=LConfig.new('test')
 	end
 
 	def testGroup_new
@@ -79,7 +80,7 @@ class TestOption < Test::Unit::TestCase
 	end
 
 	def setup
-		@cfg=Config.new('test')
+		@cfg=LConfig.new('test')
 	end
 	def teardown
 		@cfg.delete!

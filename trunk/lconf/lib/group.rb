@@ -17,9 +17,8 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-
-require 'lconf/option'
 # A group
+require 'option'
 class Group 
 	attr_reader :name
 	# Create a new group
@@ -27,7 +26,7 @@ class Group
 	# The following example creates a group within a config:
 	#
 	#  require 'lconf'
-	#  cfg=Config.new('test')
+	#  cfg=LConfig.new('test')
 	#  grp=Group.new(cfg,'test2')
 	def initialize(parent, name)
 		if (parent == nil)
@@ -44,11 +43,11 @@ class Group
 	# Each of the results are yielded to the caller.
 	#
 	# Here's an example that prints the names of all groups
-	# matching a certain pattern. Because Config inherits this method
+	# matching a certain pattern. Because LConfig inherits this method
 	# you can search within a config as well, as in the next example:
 	#
 	#  require 'lconf'
-	#  cfg=Config.new('existing_config')
+	#  cfg=LConfig.new('existing_config')
 	#  cfg.searchGroup(/foo/) { |grp| puts grp.name }
 	def searchGroup(pattern)
 		if pattern.kind_of?(Regexp)
@@ -85,7 +84,7 @@ class Group
 	# within the config 'test' and prints the returned value:
 	#
 	#  require 'lconf'
-	#  cfg = Config.new('test')
+	#  cfg = LConfig.new('test')
 	#  puts Group.exist?(cfg,'example')
 	#
 	# This also works for an allready existing group
@@ -100,7 +99,7 @@ class Group
 	# Here's an example
 	#
 	#  require 'lconf
-	#  cfg = Config.new('test')
+	#  cfg = LConfig.new('test')
 	#  grp = Group.new('test')
 	#  grp.delete!
 	def delete!
