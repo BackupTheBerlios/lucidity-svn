@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'lconf'
+require 'rubygems'
 require 'drb'
+require_gem 'lconf', '>=0.0.2'
 
 # An object container
 class LObject
@@ -31,7 +32,7 @@ class LObject
 	#  obj_server=LObject.new('my_program')
 	#
 	def initialize(application)
-		@cfg=Config.new('lobject')
+		@cfg=LConfig.new('lobject')
 		@default_path=Option.open(@cfg,'default_path').value
 		Dir.mkdir(@default_path) unless File.directory?(@default_path)
 		@path=@default_path+File::Separator+application
