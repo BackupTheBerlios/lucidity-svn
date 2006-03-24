@@ -27,7 +27,7 @@ SPEC = Gem::Specification.new do |s|
 	s.homepage	= "http://lucidity.berlios.de"
 	s.platform	= Gem::Platform::RUBY
 	s.summary	= "Lucidity configuration storage library"
-	candidates 	= Dir.glob("{docs,lib,tests}/**/*")
+	candidates 	= Dir.glob("{docs,lib,test}/**/*")
 	s.files		= candidates.delete_if do |item|
 				item.include?("svn")
 			end
