@@ -107,12 +107,12 @@ class Program
 				system("./configure > /dev/null && make >/dev/null && make install >/dev/null")
 			end
 			Dir.chdir("..")
-		elsif (@type="gem")
-			puts (" * Installing #{name}")
+		elsif (@type=="gem")
+			puts(" * Installing #{name}")
 			if (@verb==true)
-				system("gem install #{file} -t"
+				system("gem install #{file} -t")
 			else
-				system("gem install #{file} -t >/dev/null"
+				system("gem install #{file} -t >/dev/null")
 			end
 		end
 	end
@@ -142,8 +142,27 @@ rubygems=Program.new("rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","
 rubygems.download
 rubygems.extract
 rubygems.install
+
 splitvt=Program.new("www.devolution.com/~slouken/projects/splitvt/splitvt-1.6.5.tar.gz","SplitVT","c",verb)
 splitvt.download
 splitvt.extract
 splitvt.patch('download.berlios.de/lucidity/splitvt_patch-0.0.1.tar.bz2')
 splitvt.install
+
+lconf=Program.new("download.berlios.de/lucidity/lconf-0.0.2.gem","LConf","gem",verb)
+lconf.download
+lconf.install
+
+lobject=Program.new("download.berlios.de/lucidity/lobject-0.0.2.gem","LObject","gem",verb)
+lobject.download
+lobject.install
+
+lclipboard=Program.new("download.berlios.de/lucidity/lclipboard-0.0.1.gem","LClipboard","gem",verb)
+lclipboard.download
+lobject.install
+
+milestone0=Program.new("download.berlios.de/lucidity/milestone0-0.0.1.gem","Milestone0","gem",verb)
+milestone0.download
+milestone0.install
+
+puts " * All done. Type 'm0' to run the application and enjoy ;)"
