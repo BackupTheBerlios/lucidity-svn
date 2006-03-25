@@ -37,7 +37,8 @@ class Option
 	# that their structure will be preserved.
 	#
 	# For example:
-	#  require 'lconf'
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  class TestObject
 	#  	  def initialize
 	#	  	  @value='foo'
@@ -64,7 +65,8 @@ class Option
 	# Any changes to the value will be written to the option file when the
 	# program exits (even if it's a user break (^C))
 	#
-	#  require 'lconf'
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg=LConfig.new('test')
 	#  opt=Option.open('foo')
 	#  opt.value=5

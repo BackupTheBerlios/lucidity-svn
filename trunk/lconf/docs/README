@@ -1,26 +1,8 @@
-LConf is the part of Lucidity that handles configuration storage and retrieval.
-It uses plain text files to store configuration options. That means each option you store will be a string when you retrieve it. That means you might have to call its to_i (or whatever else) method to convert the option back to your desired type.
+lconf is the part of Lucidity that handles configuration storage and retrieval.
+It uses YAML as markup and can, thus, hold (almost) any object as an option in a file.
 
-Here is a simple example. More examples can be found in the source. As Obi Wan Kenobi would put it: "Use the source, Luke!" ;)
+lconf is now distributed as a Ruby Gem. If you want to see documentation (with plenty of examples given) see the rdoc generated documentation in /usr/lib/ruby/gems/1.x/doc where 1.x is your version of ruby.
 
-# you need this first
-require 'lconf'
-# create a new config. 
-cfg=Config.new('foo')
+Please see the test suite for more examples
 
-# Create a new group as a child of cfg)
-grp=Group.new(cfg,'bau')
-
-# Create a new option as a child of opt
-opt=Option.new(grp,'test','some value here')
-
-# Search for an option with a Regexp. You can also search 
-# for a Group like this with cfg.searchGroup. 
-# You can then iterate through results
-cfg.searchOption(/tes/) { |x| puts x.value }
-
-# Delete an option. Groups can be deleted as well, and they will be deleted
-# recursively
-opt.delete!
-
-To install just copy all files in src to your ruby lib directory (e.g. /usr/lib/ruby-1.8/
+To install it you can either retrieve the gem yourself and install it or use the (soon to come) CLI installer provided with Lucidity milestone0.

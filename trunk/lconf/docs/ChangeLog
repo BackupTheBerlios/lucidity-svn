@@ -1,3 +1,12 @@
+lconf 0.0.2
+* changed storage to use YAML, all kinds of complex objects can now be stored
+in options.
+* fixed dozens of bugs in the code, cleaned many things up
+* changed the API in many ways
+* now uses rubygems
+* added rdoc documentation
+* added test suite
+* a lot more, maybe this should have been 0.1.0
 lconf 0.0.1b
 * Made writes atomic, fixed a number of issues, added and updated
 documentation 

@@ -25,7 +25,8 @@ class Group
 	#
 	# The following example creates a group within a config:
 	#
-	#  require 'lconf'
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg=LConfig.new('test')
 	#  grp=Group.new(cfg,'test2')
 	def initialize(parent, name)
@@ -46,11 +47,13 @@ class Group
 	# matching a certain pattern. Because LConfig inherits this method
 	# you can search within a config as well, as in the next example:
 	#
-	#  require 'lconf'
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg=LConfig.new('existing_config')
 	#  cfg.searchGroup(/foo/) { |grp| puts grp.name }
 	def searchGroup(pattern)
 		if pattern.kind_of?(Regexp)
+			#--
 			#again, laziness is a key factor :) 
 			`find #{@name}/* -type d 2>/dev/null`.each { |i|
 				i.chomp!
@@ -83,7 +86,8 @@ class Group
 	# Here's a small example that checks if the 'example' group exists
 	# within the config 'test' and prints the returned value:
 	#
-	#  require 'lconf'
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg = LConfig.new('test')
 	#  puts Group.exist?(cfg,'example')
 	#
@@ -98,7 +102,8 @@ class Group
 	# form will be implemented that only deletes the directory
 	# Here's an example
 	#
-	#  require 'lconf
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg = LConfig.new('test')
 	#  grp = Group.new('test')
 	#  grp.delete!

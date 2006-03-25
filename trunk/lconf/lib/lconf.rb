@@ -37,6 +37,8 @@ class LConfig < Group
 	# 
 	# Here's a simple example:
 	#
+	#  require 'rubygems'
+	#  require_gem 'lconf'
 	#  cfg=LConfig.new('test_config')
 	def initialize(name)
 		paths=Array.new
