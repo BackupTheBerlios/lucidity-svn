@@ -18,6 +18,7 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+
 class Program
 	attr_reader :protocol, :domain, :path, :file, :name
 	def initialize(url_string,name,type,verb)
@@ -48,14 +49,14 @@ class Program
 		print " * Fetching #{@name} "
 		if (@which_wget.length>0)
 			puts "(using wget) ..."
-			if(@verb==true)
+			if @verb
 				system("wget #{@url_string}")
 			else
 				system("wget -q #{@url_string} >/dev/null")
 			end
 		elsif (@which_curl.length>0)
 			puts "(using curl) ..."
-			if (@verb==true)
+			if @verb
 				system("curl #{@url_string}")
 			else
 				system("curl #{@url_string} >/dev/null")
@@ -64,7 +65,53 @@ class Program
 			puts "(using internal libraries) ..."
 		end
 	end
+	def extract
+		@tarBasedFormat=false
+		[/\.tar\.gz$/,/\.tgz$/,/\.tar.bz2$/,/\.tbz2$/].each do |regexp|
+			if file =~ regexp
+				@dir = file.gsub(regexp,'') 
+				@tarBasedFormat=true
+			end
+		end
+		if @tarBasedFormat
+			if (file =~ /\.tar\.gz$/ or file =~ /\.tgz$/)
+				@archive_type='z'
+			elsif (file =~ /\.tar.bz2$/ or file =~ /\.tbz2$/)
+				@archive_type='j'
+			end
+
+			if (@verb==true) 
+				@verbose_option='v'
+			else 	
+				@verbose_option=''
+			end
+
+			puts " * Extracting #{name}"
+			system ("tar x#{@archive_type}#{@verbose_option}f #{@file}")
+		end
+	end
+	def install
+		if (type="ruby")
+			if (@verb==true)
+				system("#{@dir}/setup.rb")
+			else
+				system("#{@dir}/setup.rb >/dev/null"
+			end
+		elsif (type="c")
+			system("cd #{@dir}"
+			if (@verb==true)
+				system("./configure && make && make install")
+			else
+				system("./configure && make && make install >/dev/null")
+			end
+			system("cd #{@dir}/.."
+		end
+	end
 end
-verb=true
-rubygems=Program.new("http://rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","RubyGems","ruby",verb)
+
+
+verb=false
+rubygems=Program.new("rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","RubyGems","ruby",verb)
 rubygems.download
+rubygems.extract
+rubygems.install
