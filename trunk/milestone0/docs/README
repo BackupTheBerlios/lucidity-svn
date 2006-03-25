@@ -1,10 +1,28 @@
-At this point milestone 0 is just preliminary. A lot of stuff to fix, a lot of stuff to add.
+Milestone0 0.0.1 is finally here.
 
-You need a version of splitvt with an option called '-bottom'. At this point I have written a patch implementing this option and sent it to Sam Lantinga (the author of splitvt) and he has agreed to add it to the splitvt source. For now the patch can be found in the splitvt_patch dir, but this will be removed when Sam Lantinga releases a new version of splitvt.
+It is distributed as a ruby gem. You can retrieve it by hand or using the installer.
 
-So for now, you need to get the splitvt source package (http://www.devolution.com/~slouken/projects/splitvt/ and add the patches in splitvt_patch/ like this:
-patch -p0 <diff file>
+If you download it by hand you also need to get splitvt sources and use the splitvt patches you can find on the Lucidity website in the download repository.
 
-Then you need to:
-* Copy the executable scripts in src/ anywhere in your BIN path.
-* Copy the milestone0 directory in src anywhere in your ruby library path
+If you use the milestone0 all of this will be done automatically, including fetching all the dependencies (lconf, lobject, lclipboard) and install them.
+
+Milestone0 is a local chat application, multiple instances of the main program (called 'm0') can be started and used to communicate.
+
+All instances of the program must be started by the same user. Thus its usability as an actual chat application equals 0. Like i said, milestone0 just serves as a testbed for Lucidity features (and bugs ;) )
+
+Once you open it you're presnted with something that looks like a lot of console IRC clients (e.g. epic4). Here are the commands milestone 0 accepts:
+
+/me [arguments] 	: similar to what it does on IRC
+/who			: tells you which users are online
+/nick <new nick>	: changes your nickname
+/quit [message]		: quits (with an optional message]
+/list			: list the contents of the clipboard
+/paste <id>		: paste one of the strings in the clipboard
+/copy <test>		: copies some text to the clipboard
+/copy_last		: copies the last message to the clipboard
+
+I know it shows an ugly message everytime you quit. It happens because I use splitvt and /quit send a kill message to the parent PID. It could be done in some clean way, I'm sure, but I didn't bother.
+
+PLEASE don't send me to many bug reports about milestone0. I'd prefer to only see bug reports (and feature requests and whatever) for lconf, lobject and lclipboard.
+
+Have fun using this program and be good ;)
