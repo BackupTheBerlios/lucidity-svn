@@ -1,0 +1,10 @@
+--- splitvt.h.bak	2006-03-25 21:50:51.000000000 +0200
++++ splitvt.h	2006-03-25 21:51:22.000000000 +0200
+@@ -21,6 +21,7 @@
+ /* Special characters (from splitvt.c) */
+ extern char	command_c, switch_c, quote_c;
+ extern int	dologin;	/* Do the shells run as login shells? */
++extern int	stbottom;	/* Start in the bottom window? */
+ 
+ /* The command to run in each window */
+ #define MAX_ARGS 0xff
