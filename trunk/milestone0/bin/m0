@@ -19,9 +19,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'lconf'
-require 'lobject'
-cfg=Config.new('milestone0')
+require 'rubygems'
+require_gem 'lconf'
+require_gem 'lobject'
+cfg=LConfig.new('milestone0')
 system("clear")
 puts "Welcome to Lucidity Milestone 0"
 puts ""
@@ -52,7 +53,7 @@ $:.reverse_each { |dir|
 }
 raise "milestone0 directory not found in path" if (finalDir==nil)
 
-tmpExec='splitvt -bottom -s 20 -upper '
+tmpExec='splitvt -bottom -s 5 -upper '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'test.rb ' + screen_name + '"'
 tmpExec+=' -lower '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'client.rb ' + name + ' ' + screen_name + '"'

@@ -17,6 +17,8 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+
+require 'lclipboard'
 class ChatMessage
 	def initialize(user,message)
 		@user, @message = user, message
@@ -53,5 +55,41 @@ end
 class WhoMessage < ChatMessage
 	def to_s
 		"* Existing users: #{@message}"
+	end
+end
+
+class ListMessage < ChatMessage
+	def to_s
+		clip=LClipboard.new
+		str=Array.new
+		tmp = 'Number of elements in clipboard: ' + clip.length.to_s
+		str << tmp
+		str << '---'
+		i=0
+		clip.each { |node| 
+			tmp = i.to_s + ': ' + clip.paste(node) 
+			str << tmp
+			i+=1
+		}
+		str
+	end
+end	
+
+class ClearMessage < ChatMessage
+	def to_s
+		clip=LClipboard.new
+		clip.clear!
+		"!!! #{@user} cleared the clipboard"
+	end
+end
+
+class CopyLastMessage < ChatMessage
+	def to_s
+		"+ #{@user} copied the last message to the clipboard."
+	end
+end
+class CopyMessage < ChatMessage
+	def to_s
+		"+ #{@user} copied '#{@message}' to the clipboard."
 	end
 end
