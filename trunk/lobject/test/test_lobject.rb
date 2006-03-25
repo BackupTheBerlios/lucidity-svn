@@ -19,7 +19,8 @@
 #
 
 require 'test/unit'
-require 'lobject'
+require 'rubygems'
+require_gem 'lobject'
 
 class TestLObject < Test::Unit::TestCase
 	def testLObject_new

@@ -20,20 +20,26 @@
 
 require 'rubygems'
 require 'drb'
-require_gem 'lconf', '>=0.0.2'
+require_gem 'lconf'
 
 # An object container
 class LObject
+	DefaultLObjectPath="/tmp/lucidity"
 	# Create a new group of LObjects
 	#
 	# Here's a simple example:
 	#
-	#  require 'lobject'
+	#  require 'rubygems'
+	#  require_gem 'lobject'
 	#  obj_server=LObject.new('my_program')
 	#
 	def initialize(application)
 		@cfg=LConfig.new('lobject')
-		@default_path=Option.open(@cfg,'default_path').value
+		begin
+			@default_path=Option.open(@cfg,'default_path').value
+		rescue
+			@default_path=DefaultLObjectPath
+		end
 		Dir.mkdir(@default_path) unless File.directory?(@default_path)
 		@path=@default_path+File::Separator+application
 		Dir.mkdir(@path) unless File.directory?(@path)
@@ -51,7 +57,8 @@ class LObject
 	#
 	# Here's an example:
 	#
-	#  require 'lobject'
+	#  require 'rubygems'
+	#  require_gem 'lobject'
 	#  class TestObject
 	#  	  def initialize
 	#		  @name='foo'
@@ -87,7 +94,8 @@ class LObject
 	# Here's an example. This relies on the example from LObject#wait
 	# allready running as a separate process
 	#
-	#  require 'lobject'
+	#  require 'rubygems'
+	#  require_gem 'lobject'
 	#  container=LObject.new('test')
 	#  obj=container.getObject('anObject')
 	def getObject(name)
@@ -103,7 +111,8 @@ class LObject
 	# has a printStatus method that displays their current status, you
 	# can run that method on all these objects as easy as:
 	#
-	#  require 'lobject'
+	#  require 'rubygems'
+	#  require_gem 'lobject'
 	#  container=LObject.new('system_monitors')
 	#  container.each { |c| c.printStatus }
 	#

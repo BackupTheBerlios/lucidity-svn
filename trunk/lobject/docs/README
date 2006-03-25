@@ -1,7 +1,9 @@
-LObject is the part of Lucidity that takes care of letting one application have acces to another application's objects. It uses UNIX sockets for communication and the DRuby module for doing all the things I couldn't possibly program ;)
+lobject is the part of Lucidity that takes care of letting one application have acces to another application's objects. It uses UNIX sockets for communication and the DRuby module for doing all the things I couldn't possibly program ;)
 
-Like LConf, this is another no-brainer, with under 30 lines of code.
+Please see the examples/ directory for a sample client and server. Milestone 0 is, however, a far better example of what can be done using this technology
 
-Please see the examples/ directory for a sample client and server. Milestone 0 (whenever it arrives) will be the best example you can get your hands on.
+lobject is now distributed as a Ruby Gem. You can either retrieve it yourself and install it, or just use the Milestone0 installer to get it.
 
-Just copy the file src/lobject.rb to /usr/lib/ruby/1.x and you're all set. And remember, it needs drb (distributed ruby).
+There's some decent documentation, automatically genereated with rdoc.
+	1. run 'gem environment'
+	2. go to the reported 'INSTALLATION DIRECTORY' in the doc subdirectory

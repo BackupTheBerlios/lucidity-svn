@@ -1,0 +1,5 @@
+lobject 0.0.2
+* now comes with rdoc documentation
+* added a test suite
+* changes in the API, please see the rdoc documentation for details
+* now distributed as a Ruby Gem

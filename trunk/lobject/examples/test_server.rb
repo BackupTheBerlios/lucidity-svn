@@ -1,4 +1,5 @@
-require 'lobject'
+require 'rubygems'
+require_gem 'lobject'
 class TestServer
 	def print(message)
 		puts message 
