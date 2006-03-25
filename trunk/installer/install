@@ -92,19 +92,28 @@ class Program
 	end
 	def install
 		if (@type=="ruby")
+			puts(" * Installing #{name}")
 			if (@verb==true)
 				system("ruby #{@dir}/setup.rb")
 			else
 				system("ruby #{@dir}/setup.rb >/dev/null 2>&1")
 			end
 		elsif (@type=="c")
+			puts(" * Installing #{name}")
 			Dir.chdir(@dir)
 			if (@verb==true)
 				system("./configure && make && make install")
 			else
-				system("./configure && make && make install >/dev/null")
+				system("./configure > /dev/null && make >/dev/null && make install >/dev/null")
 			end
 			Dir.chdir("..")
+		elsif (@type="gem")
+			puts (" * Installing #{name}")
+			if (@verb==true)
+				system("gem install #{file} -t"
+			else
+				system("gem install #{file} -t >/dev/null"
+			end
 		end
 	end
 	def patch(patchURL)
