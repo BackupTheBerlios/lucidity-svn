@@ -1,0 +1,70 @@
+#!/usr/bin/ruby -w
+#
+# Copyright (C) 2006 Eugen Minciu
+#
+# This file is part of Lucidity.
+#
+# Lucidity is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Lucidity is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Lucidity; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+class Program
+	attr_reader :protocol, :domain, :path, :file, :name
+	def initialize(url_string,name,type,verb)
+		@url_string=url_string.dup
+		@name=name
+		@type=type
+		@verb=verb
+		if url_string =~ /^http:\/\//
+			@protocol='http'
+			url_string=url_string.gsub(/^http:\/\//,'')
+		elsif url_string =~ /^ftp:\/\//
+			@protocol='ftp'
+			url_string=url_string.gsub(/^http:\/\//,'')
+		else @protocol='http'
+		end 
+		@url_array=url_string.split('/')
+		@domain=@url_array[0]
+		@file=@url_array[@url_array.length-1]
+		@path=@url_array[1...@url_array.length-1]
+	end
+	def download
+		@which_wget=`which wget`
+		@which_curl=`which curl`	
+		if File.exist?(@file)
+			puts " * #{@name} has allready been downloaded. Skipping ..."
+			return
+		end
+		print " * Fetching #{@name} "
+		if (@which_wget.length>0)
+			puts "(using wget) ..."
+			if(@verb==true)
+				system("wget #{@url_string}")
+			else
+				system("wget -q #{@url_string} >/dev/null")
+			end
+		elsif (@which_curl.length>0)
+			puts "(using curl) ..."
+			if (@verb==true)
+				system("curl #{@url_string}")
+			else
+				system("curl #{@url_string} >/dev/null")
+			end
+		else 
+			puts "(using internal libraries) ..."
+		end
+	end
+end
+verb=true
+rubygems=Program.new("http://rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","RubyGems","ruby",verb)
+rubygems.download
