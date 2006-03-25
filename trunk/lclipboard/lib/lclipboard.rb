@@ -17,8 +17,8 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-
-require 'lconf'
+require 'rubygems'
+require_gem 'lconf','>=0.0.2'
 # A clipboard.
 # 
 # The really cool thing about this clipboard is that it allows you to access
@@ -44,6 +44,7 @@ class LClipboard
 	DefaultLocation='lclipboard'
 
 	# reload items from a clipboard.
+	#
 	# This allows one program to see another program's modifications
 	# to the clipboard items
 	def reload
@@ -52,6 +53,7 @@ class LClipboard
 	end
 
 	# commit changes to a clipboard
+	#
 	# This enables other functions to imediately see modifications to
 	# the clipboard
 	def commit
@@ -73,12 +75,13 @@ class LClipboard
 	#
 	# Here's an example
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems
+	#  require_gem 'lclipboard'
 	#  clip=LClipboard.new('test')
 	#  clip2=LClipboard.new
 	def initialize(name=DefaultClipboard)
 		@name=name
-		@cfg=LocalConfig.new(DefaultLocation)
+		@cfg=LocalLConfig.new(DefaultLocation)
 		if Option.exist?(@cfg,name)
 			reload
 		else 
@@ -93,7 +96,8 @@ class LClipboard
 	#
 	# Here's an example:
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems'
+	#  require_gem 'lclipboard'
 	#  clip=LClipboard.new
 	#  clip.copy('whatever')
 	#
@@ -114,7 +118,8 @@ class LClipboard
 	#
 	# Here's a small example:
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems'
+	#  require_gem 'lclipboard'
 	#  clip=LClipboard.new
 	#  id=clip.copy('whatever')
 	#  puts clip.paste(id)
@@ -147,7 +152,8 @@ class LClipboard
 	#
 	# Here's an example
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems'
+	#  require_gem 'lclipboard'
 	#  clip=LClipboard.new
 	#  clip.each
 	def each
@@ -157,7 +163,8 @@ class LClipboard
 
 	# Returns the number of times in the clipboard.
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems
+	#  require_gem 'lclipboard'
 	#  clip=LClipboard.new
 	#  puts clip.length
 	def length
@@ -169,7 +176,8 @@ class LClipboard
 	# 
 	# Here's a reduced example:
 	#
-	#  require 'lclipboard'
+	#  require 'rubygems'
+	#  require_gem 'lclipboard'
 	#  LClipboard.new.clear!
 	def clear!
 		reload

@@ -19,7 +19,8 @@
 #
 
 require 'test/unit'
-require 'lclipboard'
+require 'rubygems'
+require_gem 'lclipboard'
 
 class TestLClipboard < Test::Unit::TestCase
 	def testLClipboard_new 
