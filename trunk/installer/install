@@ -20,11 +20,11 @@
 #
 
 class Program
-	attr_reader :protocol, :domain, :path, :file, :name
-	def initialize(url_string,name,type,verb)
+	attr_reader :protocol, :domain, :path, :file, :name, :dir
+	def initialize(url_string,name,programType,verb)
 		@url_string=url_string.dup
 		@name=name
-		@type=type
+		@type=programType
 		@verb=verb
 		if url_string =~ /^http:\/\//
 			@protocol='http'
@@ -87,25 +87,43 @@ class Program
 			end
 
 			puts " * Extracting #{name}"
-			system ("tar x#{@archive_type}#{@verbose_option}f #{@file}")
+			system("tar x#{@archive_type}#{@verbose_option}f #{@file}")
 		end
 	end
 	def install
-		if (type="ruby")
+		if (@type=="ruby")
 			if (@verb==true)
-				system("#{@dir}/setup.rb")
+				system("ruby #{@dir}/setup.rb")
 			else
-				system("#{@dir}/setup.rb >/dev/null"
+				system("ruby #{@dir}/setup.rb >/dev/null 2>&1")
 			end
-		elsif (type="c")
-			system("cd #{@dir}"
+		elsif (@type=="c")
+			Dir.chdir(@dir)
 			if (@verb==true)
 				system("./configure && make && make install")
 			else
 				system("./configure && make && make install >/dev/null")
 			end
-			system("cd #{@dir}/.."
+			Dir.chdir("..")
 		end
+	end
+	def patch(patchURL)
+		@patchedDir=@dir
+		@patch=Program.new(patchURL,"#{@name} patch","patch",@verb)
+		@patch.download
+		@patch.extract
+		puts " * Patching #{name}"
+		system("cp #{@patch.dir}/*diff #{@patchedDir}")
+		Dir.chdir(@patchedDir)
+		`ls *diff`.each { |d|
+			d.chomp!
+			if @verb
+				system("patch -p0 < #{d}")
+			else
+				system("patch -p0 < #{d} >/dev/null")
+			end
+		}
+		Dir.chdir("..")
 	end
 end
 
@@ -115,3 +133,8 @@ rubygems=Program.new("rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","
 rubygems.download
 rubygems.extract
 rubygems.install
+splitvt=Program.new("www.devolution.com/~slouken/projects/splitvt/splitvt-1.6.5.tar.gz","SplitVT","c",verb)
+splitvt.download
+splitvt.extract
+splitvt.patch('download.berlios.de/lucidity/splitvt_patch-0.0.1.tar.bz2')
+splitvt.install
