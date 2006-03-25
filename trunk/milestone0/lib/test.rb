@@ -17,10 +17,10 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-require 'milestone0/message'
-require 'milestone0/screen'
-require 'lobject'
-require 'lconf'
+require 'rubygems'
+require_gem 'lobject'
+require 'message'
+require 'screen'
 screen_name=ARGV[0]
 scr=Screen.new
 screens=LObject.new('milestone0/screens')

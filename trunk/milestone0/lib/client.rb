@@ -17,9 +17,10 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-require 'lobject'
-require 'lclipboard'
-require 'milestone0/user'
+require 'rubygems'
+require_gem 'lobject'
+require_gem 'lclipboard'
+require 'user'
 
 # A client (present in the lower part of milestone 0)
 class Client 

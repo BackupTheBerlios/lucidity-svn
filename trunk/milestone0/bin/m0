@@ -46,14 +46,14 @@ LObject.new('milestone0')
 finalDir=nil
 
 $:.reverse_each { |dir|
-	tmpDir = (dir+File::Separator+'milestone0')
-	if (File.directory?(tmpDir)) 
-		finalDir=tmpDir.dup
+	if (File.exist?(dir + File::Separator + 'test.rb') and
+		File.exist?(dir + File::Separator + 'client.rb'))
+		finalDir=dir.dup
 	end
 }
 raise "milestone0 directory not found in path" if (finalDir==nil)
 
-tmpExec='splitvt -bottom -s 5 -upper '
+tmpExec='splitvt -bottom -s 20 -upper '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'test.rb ' + screen_name + '"'
 tmpExec+=' -lower '
 tmpExec+='"ruby ' + finalDir + File::Separator + 'client.rb ' + name + ' ' + screen_name + '"'

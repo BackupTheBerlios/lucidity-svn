@@ -18,7 +18,8 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
 
-require 'lclipboard'
+require 'rubygems'
+require_gem 'lclipboard'
 class ChatMessage
 	def initialize(user,message)
 		@user, @message = user, message
