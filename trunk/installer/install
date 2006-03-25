@@ -26,6 +26,7 @@ class Program
 		@name=name
 		@type=programType
 		@verb=verb
+		@allreadyInstalled=false
 		if url_string =~ /^http:\/\//
 			@protocol='http'
 			url_string=url_string.gsub(/^http:\/\//,'')
@@ -40,6 +41,7 @@ class Program
 		@path=@url_array[1...@url_array.length-1]
 	end
 	def download
+		return if @allreadyInstalled
 		@which_wget=`which wget`
 		@which_curl=`which curl`	
 		if File.exist?(@file)
@@ -66,6 +68,7 @@ class Program
 		end
 	end
 	def extract
+		return if @allreadyInstalled
 		@tarBasedFormat=false
 		[/\.tar\.gz$/,/\.tgz$/,/\.tar.bz2$/,/\.tbz2$/].each do |regexp|
 			if file =~ regexp
@@ -91,6 +94,7 @@ class Program
 		end
 	end
 	def install
+		return if @allreadyInstalled
 		if (@type=="ruby")
 			puts(" * Installing #{name}")
 			if (@verb==true)
@@ -114,9 +118,17 @@ class Program
 			else
 				system("gem install #{file} -t >/dev/null")
 			end
+		elsif (@type=="gem-notest")
+			puts(" * Installing #{name}")
+			if (@verb==true)
+				system("gem install #{file}")
+			else
+				system("gem install #{file} >/dev/null")
+			end
 		end
 	end
 	def patch(patchURL)
+		return if @allreadyInstalled
 		@patchedDir=@dir
 		@patch=Program.new(patchURL,"#{@name} patch","patch",@verb)
 		@patch.download
@@ -134,34 +146,46 @@ class Program
 		}
 		Dir.chdir("..")
 	end
+	def check(cmd)
+		if (`#{cmd}`.length>0) 
+			@allreadyInstalled=true
+			puts " * #{name} is allready installed. Moving on..."
+		end
+	end
 end
 
 
 verb=false
 rubygems=Program.new("rubyforge.org/frs/download.php/5207/rubygems-0.8.11.tgz","RubyGems","ruby",verb)
+rubygems.check("gem")
 rubygems.download
 rubygems.extract
 rubygems.install
 
 splitvt=Program.new("www.devolution.com/~slouken/projects/splitvt/splitvt-1.6.5.tar.gz","SplitVT","c",verb)
+splitvt.check("splitvt -h 2>&1 | grep bottom")
 splitvt.download
 splitvt.extract
 splitvt.patch('download.berlios.de/lucidity/splitvt_patch-0.0.1.tar.bz2')
 splitvt.install
 
 lconf=Program.new("download.berlios.de/lucidity/lconf-0.0.2.gem","LConf","gem",verb)
+lconf.check("gem list lconf")
 lconf.download
 lconf.install
 
-lobject=Program.new("download.berlios.de/lucidity/lobject-0.0.2.gem","LObject","gem",verb)
+lobject=Program.new("download.berlios.de/lucidity/lobject-0.0.2.gem","LObject","gem",true)
+lobject.check("gem list lobject")
 lobject.download
 lobject.install
 
 lclipboard=Program.new("download.berlios.de/lucidity/lclipboard-0.0.1.gem","LClipboard","gem",verb)
+lclipboard.check("gem list lclipboard")
 lclipboard.download
-lobject.install
+lclipboard.install
 
-milestone0=Program.new("download.berlios.de/lucidity/milestone0-0.0.1.gem","Milestone0","gem",verb)
+milestone0=Program.new("download.berlios.de/lucidity/milestone0-0.0.1.gem","Lucidity Milestone 0","gem-notest",verb)
+milestone0.check("gem list milestone0")
 milestone0.download
 milestone0.install
 
