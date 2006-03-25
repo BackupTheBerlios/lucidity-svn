@@ -1,22 +1,52 @@
-71a72,73
-> int stbottom=0;			/* Start in the bottom vt? */ 
-> 
-93a96
-> 	fprintf(stderr, "\t-bottom\t\t\tStarts in the lower window\n");
-154c157
-< 	while ( (i=getopt(argc, argv, "n:u:l:r:s:t:vh")) != EOF )
----
-> 	while ( (i=getopt(argc, argv, "n:u:l:r:b:s:t:vh")) != EOF )
-178a182,187
-> 			case 'b': if ( strcmp(optarg, "ottom") ==0) 
-> 					  stbottom=1;
-> 				  else
-> 					  print_usage(argv[0]);
-> 				  break;
-> 
-312c321,323
-< 	thisfd=topfd;
----
-> 	if (stbottom)
-> 		thisfd=bottomfd;
-> 	else thisfd=topfd;
+--- splitvt.c.bak	2006-03-25 20:21:26.000000000 +0200
++++ splitvt.c	2006-03-25 20:22:07.000000000 +0200
+@@ -69,6 +69,8 @@
+ static int ttyfd=0, thisfd;		/* I/O file descriptors */
+ static int topfd, bottomfd;		/* Master file descriptors */
+ 
++int stbottom=0;			/* Start in the bottom vt? */ 
++
+ /* Special characters */
+ char 	command_c=COMMAND,
+ 	switch_c=SWITCH, 
+@@ -91,6 +93,7 @@
+ 	fprintf(stderr, "\t-t title\t\tSets the xterm title bar to 'title'\n");
+ 	fprintf(stderr, "\t-upper command\t\tRuns 'command' in the upper window\n");
+ 	fprintf(stderr, "\t-lower command\t\tRuns 'command' in the lower window\n");
++	fprintf(stderr, "\t-bottom\t\t\tStarts in the lower window\n");
+ 	fprintf(stderr, "\t-login\t\t\tRuns programs as if they were login shells\n");
+ 	fprintf(stderr, "\t-nologin\t\tOverrides \"set login on\" in startup file\n");
+ 	fprintf(stderr, "\t-rcfile file\t\tLoads 'file' at startup instead of ~/.splitvtrc\n");
+@@ -151,7 +154,7 @@
+ 		splitvtrc();
+ 
+ 	/* Parse command line options */
+-	while ( (i=getopt(argc, argv, "n:u:l:r:s:t:vh")) != EOF )
++	while ( (i=getopt(argc, argv, "n:u:l:r:b:s:t:vh")) != EOF )
+ 	{
+ 		switch (i)
+ 		{
+@@ -176,6 +179,12 @@
+ 				  } else
+ 					print_usage(argv[0]);
+ 				  break;
++			case 'b': if ( strcmp(optarg, "ottom") ==0) 
++					  stbottom=1;
++				  else
++					  print_usage(argv[0]);
++				  break;
++
+ 			case 'r': if ( strcmp(optarg, "cfile") != 0 )
+ 					print_usage(argv[0]);
+ 				  else /* Already handled above */
+@@ -309,7 +318,9 @@
+ 		(void) strcpy(lower_tty, tty_name);
+ 		(void) addutmp(pw->pw_name, pw->pw_uid, lower_tty); 
+ 	}
+-	thisfd=topfd;
++	if (stbottom)
++		thisfd=bottomfd;
++	else thisfd=topfd;
+ 
+ #if defined(_POSIX_SOURCE) || defined(m88k)
+ #include <limits.h>

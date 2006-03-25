@@ -1,5 +1,13 @@
-21a22,25
-> .I -bottom
-> Stats with the focus in the bottom window
-> .TP
-> .TB
+--- splitvt.1.bak	2006-03-25 20:17:51.000000000 +0200
++++ splitvt.1	2006-03-25 20:19:54.000000000 +0200
+@@ -19,6 +19,10 @@
+ Runs 'command' in the lower window
+ .TP
+ .TB
++.I -bottom
++Stats with the focus in the bottom window
++.TP
++.TB
+ .I -s numlines
+ Sets 'numlines' to the number of lines in the top window.  This number
+ will be modified if the screen isn't big enough to handle the full

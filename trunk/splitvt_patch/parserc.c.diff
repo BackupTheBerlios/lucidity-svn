@@ -1,10 +1,18 @@
-99a100,108
-> 	} else if ( strcmp(args[1], "bottom") == 0 ) {
-> 		if ( ! args[2] )
-> 			warn("Usage: set bottom [on|off]\n");
-> 		else if ( strcmp(args[2], "on") == 0 )
-> 			stbottom=1;
-> 		else if ( strcmp(args[2], "off") == 0)
-> 			stbottom=0;
-> 		else
-> 			warn("Usage set bottom [on|off]\n");
+--- parserc.c.bak	2006-03-25 19:52:30.000000000 +0200
++++ parserc.c	2006-03-25 20:02:01.000000000 +0200
+@@ -97,6 +97,15 @@
+ 			dologin=0;
+ 		else
+ 			warn("Usage: set login [on|off]\n");
++	} else if ( strcmp(args[1], "bottom") == 0 ) {
++		if ( ! args[2] )
++			warn("Usage: set bottom [on|off]\n");
++		else if ( strcmp(args[2], "on") == 0 )
++			stbottom=1;
++		else if ( strcmp(args[2], "off") == 0)
++			stbottom=0;
++		else
++			warn("Usage set bottom [on|off]\n");
+ 	} else
+ 		warn("Invalid parameter to 'set'");
+ }
