@@ -1,0 +1,9 @@
+lrender is Lucidity's module for rendering.
+
+This code is pre-alpha. It leaks memory like hell and generally works very badly. 
+
+To install, run the following commands:
+
+gem build lrender.gemspec
+gem install lrender-0.0.1.gem
+

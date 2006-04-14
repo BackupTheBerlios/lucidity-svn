@@ -1,0 +1,124 @@
+#
+# Copyright (C) 2006 Eugen Minciu
+#
+# This file is part of Lucidity.
+#
+# Lucidity is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# Lucidity is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with Lucidity; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+#
+#!/usr/bin/ruby1.8 -w
+
+require 'rubygems'
+require_gem 'lrender'
+
+screen=LRenderScreen.new(640,480)
+vScreen=LRenderVirtualScreen.new(640,480)
+vScreen2=LRenderVirtualScreen.new(640,480)
+vScreen3=LRenderVirtualScreen.new(640,480)
+vScreen4=LRenderVirtualScreen.new(640,480)
+vScreen5=LRenderVirtualScreen.new(640,480)
+
+screen.virtualScreens << vScreen
+screen.virtualScreens << vScreen2
+screen.virtualScreens << vScreen3
+screen.virtualScreens << vScreen4
+screen.virtualScreens << vScreen5
+
+reg=LRenderRegion.new(0.0,0.0,0.8,0.8)
+reg2=LRenderRegion.new(0.0,0.0,0.8,0.8)
+reg3=LRenderRegion.new(0.0,0.0,0.8,0.8)
+reg4=LRenderRegion.new(0.0,0.0,0.8,0.8)
+reg5=LRenderRegion.new(0.0,0.0,0.8,0.8)
+
+
+txt=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+txt2=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+txt3=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+txt4=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+txt5=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+
+txt.font="Nimbus Mono L"
+txt2.font="Nimbus Mono L"
+txt3.font="Nimbus Mono L"
+txt4.font="Nimbus Mono L"
+txt5.font="Nimbus Mono L"
+
+txt.size=0.055
+txt2.size=0.055
+txt3.size=0.055
+txt4.size=0.055
+txt5.size=0.055
+
+reg.objects << txt
+reg2.objects << txt2
+reg3.objects << txt3
+reg4.objects << txt4
+reg5.objects << txt5
+
+vScreen.regions << reg
+vScreen2.regions << reg2
+vScreen3.regions << reg3
+vScreen4.regions << reg4
+vScreen5.regions << reg5
+
+screen.defaultScreen=vScreen
+screen.draw
+sleep 2
+
+test1(screen,txt)
+sleep 2
+
+screen.defaultScreen=vScreen2
+test2(screen,txt2)
+sleep 2
+
+screen.defaultScreen=vScreen3
+test3(screen,txt3)
+sleep 2
+
+screen.defaultScreen=vScreen4
+test4(screen,txt4)
+sleep 2
+
+screen.defaultScreen=vScreen5
+test5(screen,reg5,txt5)
+sleep 2
+
+txt.text="(C) Copyright Eugen Minciu 2006"
+screen.draw
+sleep(2)
+
+txt.text="Good bye ;)"
+screen.draw
+sleep(2)
+
+screen.defaultScreen=vScreen
+screen.draw
+sleep 2
+
+screen.defaultScreen=vScreen2
+screen.draw
+sleep 2
+
+screen.defaultScreen=vScreen3
+screen.draw
+sleep 2
+
+screen.defaultScreen=vScreen4
+screen.draw
+sleep 2
+
+screen.defaultScreen=vScreen5
+screen.draw
+sleep 2
