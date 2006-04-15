@@ -34,8 +34,8 @@ class LRenderPath < LRenderObject
 	LineJoin::Miter=0
 	LineJoin::Round=1
 	LineJoin::Bevel=2
-	attr_reader :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha
-	attr_writer :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha
+	attr_reader :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha, :dash
+	attr_writer :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha, :dash
 
 	def initialize(x,y)
 		super(x,y)

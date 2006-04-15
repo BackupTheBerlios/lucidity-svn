@@ -17,8 +17,8 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-require 'test1'
-require 'test2'
-require 'test3'
-require 'test4'
-require 'test5'
+require 'tests/test1'
+require 'tests/test2'
+require 'tests/test3'
+require 'tests/test4'
+require 'tests/test5'

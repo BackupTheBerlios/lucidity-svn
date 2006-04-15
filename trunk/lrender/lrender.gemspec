@@ -34,6 +34,6 @@ SPEC = Gem::Specification.new do |s|
 	s.extensions    = ["ext/extconf.rb"]
 	s.executables	= ['lrender-test']
 	s.require_paths	= ["lib","ext"]
-	s.autorequire   = "lib/lrender.rb"
+	s.autorequire   = "lrender.rb"
 	s.has_rdoc	= false
 end

@@ -33,11 +33,13 @@ static VALUE setPathOptions(VALUE self, VALUE cr_object, VALUE path_object)
 	VALUE join_object=rb_iv_get(path_object,"@lineJoin");
 	VALUE fillRule_object=rb_iv_get(path_object,"@fillRule");
 	VALUE width_object=rb_iv_get(path_object,"@lineWidth");
+	VALUE dash_object=rb_iv_get(path_object,"@dash");
 
         int cap=NUM2INT(cap_object);
 	int join=NUM2INT(join_object);
 	int fillRule=NUM2INT(fillRule_object);
 	double width=NUM2DBL(width_object);
+	double dash;
 
         switch(cap) {
 		case LRENDER_LINE_CAP_BUTT:
@@ -82,6 +84,10 @@ static VALUE setPathOptions(VALUE self, VALUE cr_object, VALUE path_object)
 
 		default:
 		break;
+	}
+	if (dash_object!=Qnil) {
+		dash=NUM2DBL(dash_object);
+		cairo_set_dash(cr,&dash,1,0.0);
 	}
 	cairo_set_line_width(cr,width);
 	return Qnil;
