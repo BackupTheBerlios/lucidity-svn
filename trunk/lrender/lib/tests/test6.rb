@@ -17,34 +17,28 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-require 'region'
 require 'screen'
-require 'text'
-require 'line'
-require 'curve'
-require 'lrender.so'
+def test6(screen,region,txt)
+	txt.text="Test 6. Curves"
+	screen.draw
+	sleep 2
 
-class LRenderVirtualScreen
-	attr_reader :screen, :width, :height, :regions, :antiAlias
-	attr_writer :regions, :antiAlias
-	def initialize(width,height)
-		@width=width
-		@height=height
-		@regions=[]
-		@antiAlias=LRenderObject::AntiAlias::Subpixel
-	end
-	def draw(display,screen)
-		GC.disable
-		@regions.each { |r|
-			@realWidth=(@width)*(r.width)
-		        @realHeight=(@height)*(r.height)
-			@cr=LRender.createCairoContext(display,screen,@realWidth,@realHeight) 
-			r.objects.each { |o|
-				begin
-					o.render(r,@cr,self) 
-				end 
-			} 
-		}
-		GC.enable
-	end
+	txt.text=""
+	p=LRenderPath.new(0.1,0.1)
+	region.objects << p
+
+	l1=LRenderCurve.new(0.2,0.1,0.3,0.4,0.5,0.4)
+	p.red=1
+	p.objects << l1
+	screen.draw
+	sleep 2
+
+
+	p.closed=true
+	p.blue=0
+	p.alpha=0.25
+	screen.draw
+	sleep 2
+
+	region.objects.pop
 end

@@ -28,18 +28,21 @@ vScreen2=LRenderVirtualScreen.new(800,600)
 vScreen3=LRenderVirtualScreen.new(800,600)
 vScreen4=LRenderVirtualScreen.new(800,600)
 vScreen5=LRenderVirtualScreen.new(800,600)
+vScreen6=LRenderVirtualScreen.new(800,600)
 
 screen.virtualScreens << vScreen
 screen.virtualScreens << vScreen2
 screen.virtualScreens << vScreen3
 screen.virtualScreens << vScreen4
 screen.virtualScreens << vScreen5
+screen.virtualScreens << vScreen6
 
 reg=LRenderRegion.new(0.0,0.0,0.8,0.8)
 reg2=LRenderRegion.new(0.0,0.0,0.8,0.8)
 reg3=LRenderRegion.new(0.0,0.0,0.8,0.8)
 reg4=LRenderRegion.new(0.0,0.0,0.8,0.8)
 reg5=LRenderRegion.new(0.0,0.0,0.8,0.8)
+reg6=LRenderRegion.new(0.0,0.0,0.8,0.8)
 
 
 txt=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
@@ -47,30 +50,35 @@ txt2=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
 txt3=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
 txt4=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
 txt5=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
+txt6=LRenderText.new(0.1,0.3,"Lucidity - see clearly")
 
 txt.font="Nimbus Mono L"
 txt2.font="Nimbus Mono L"
 txt3.font="Nimbus Mono L"
 txt4.font="Nimbus Mono L"
 txt5.font="Nimbus Mono L"
+txt6.font="Nimbus Mono L"
 
 txt.size=0.055
 txt2.size=0.055
 txt3.size=0.055
 txt4.size=0.055
 txt5.size=0.055
+txt6.size=0.055
 
 reg.objects << txt
 reg2.objects << txt2
 reg3.objects << txt3
 reg4.objects << txt4
 reg5.objects << txt5
+reg6.objects << txt6
 
 vScreen.regions << reg
 vScreen2.regions << reg2
 vScreen3.regions << reg3
 vScreen4.regions << reg4
 vScreen5.regions << reg5
+vScreen6.regions << reg6
 
 screen.defaultScreen=vScreen
 screen.draw
@@ -95,6 +103,10 @@ screen.defaultScreen=vScreen5
 test5(screen,reg5,txt5)
 sleep 2
 
+screen.defaultScreen=vScreen6
+test6(screen,reg6,txt6)
+sleep 2
+
 txt.text="(C) Copyright Eugen Minciu 2006"
 screen.draw
 sleep(2)
@@ -102,23 +114,3 @@ sleep(2)
 txt.text="Good bye ;)"
 screen.draw
 sleep(2)
-
-screen.defaultScreen=vScreen
-screen.draw
-sleep 2
-
-screen.defaultScreen=vScreen2
-screen.draw
-sleep 2
-
-screen.defaultScreen=vScreen3
-screen.draw
-sleep 2
-
-screen.defaultScreen=vScreen4
-screen.draw
-sleep 2
-
-screen.defaultScreen=vScreen5
-screen.draw
-sleep 2

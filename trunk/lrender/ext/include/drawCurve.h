@@ -19,41 +19,7 @@
  *
  */
 
-#include <ruby.h>
-#include <cairo.h>
-#include <cairo-xlib.h>
-
-extern void Init_openDisplay();
-
-extern void Init_createScreen();
-extern void Init_updateScreen();
-extern void Init_paintScreen();
-
-extern void Init_createCairoContext();
-extern void Init_setCairoContext();
-
-extern void Init_drawText();
-extern void Init_drawLine();
-extern void Init_drawCurve();
-
-extern void Init_setPathOptions();
-extern void Init_finalizePath();
-
-void Init_lrender()
-{
-	Init_openDisplay();
-
-	Init_createScreen();
-	Init_updateScreen();
-	Init_paintScreen();
-
-	Init_createCairoContext();
-	Init_setCairoContext();
-
-	Init_drawText();
-	Init_drawLine();
-	Init_drawCurve();
-
-	Init_setPathOptions();
-	Init_finalizePath();
-}
+#ifndef LRENDER_DRAW_CURVE_H
+#define LRENDER_DRAW_CURVE_H
+static VALUE drawCurve(VALUE self, VALUE line, VALUE cr);
+#endif

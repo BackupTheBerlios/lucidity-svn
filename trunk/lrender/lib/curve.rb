@@ -17,34 +17,27 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-require 'region'
-require 'screen'
-require 'text'
-require 'line'
-require 'curve'
+require 'path'
 require 'lrender.so'
-
-class LRenderVirtualScreen
-	attr_reader :screen, :width, :height, :regions, :antiAlias
-	attr_writer :regions, :antiAlias
-	def initialize(width,height)
-		@width=width
-		@height=height
-		@regions=[]
-		@antiAlias=LRenderObject::AntiAlias::Subpixel
+class LRenderCurve < LRenderObject
+	attr_reader :realDestX, :realDestY
+	attr_writer :realDestX, :realDestY
+	def initialize(firstX,firstY,secondX,secondY,destX,destY)
+		super(destX,destY)
+		@firstX=firstX
+		@firstY=firstY
+		@secondX=secondX
+		@secondY=secondY
+		@destX=destX
+		@destY=destY
 	end
-	def draw(display,screen)
-		GC.disable
-		@regions.each { |r|
-			@realWidth=(@width)*(r.width)
-		        @realHeight=(@height)*(r.height)
-			@cr=LRender.createCairoContext(display,screen,@realWidth,@realHeight) 
-			r.objects.each { |o|
-				begin
-					o.render(r,@cr,self) 
-				end 
-			} 
-		}
-		GC.enable
+	def render(cr,width,height)
+		@realFirstX=@firstX*width
+		@realFirstY=@firstY*height
+		@realSecondX=@secondX*width
+		@realSecondY=@secondY*height
+		@realDestX=@destX*width
+		@realDestY=@destY*height
+		LRender.drawCurve(self,cr)
 	end
 end
