@@ -19,5 +19,5 @@
 #
 require 'screen'
 require 'object'
-require 'tests'
 require 'lrender'
+require 'tests'

@@ -21,7 +21,7 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/finalizePath.h"
@@ -55,7 +55,7 @@ static VALUE finalizePath(VALUE self, VALUE cr_object, VALUE path_object)
 	return Qnil;
 }
 
-void Init_lrenderFinalizePath()
+void Init_finalizePath()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"finalizePath",finalizePath,2);

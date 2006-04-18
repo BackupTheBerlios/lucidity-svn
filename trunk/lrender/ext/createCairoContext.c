@@ -21,29 +21,42 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/createCairoContext.h"
 
-static VALUE createCairoContext(VALUE self, VALUE raw_surface,VALUE width_object, VALUE height_object)
+static VALUE createCairoContext(VALUE self, VALUE display, VALUE screen, VALUE width_object, VALUE height_object)
 {
 	int width=NUM2INT(width_object);
 	int height=NUM2INT(height_object);
 	
-	int stride=width*4;
-	cairo_surface_t *surface = cairo_image_surface_create_for_data(
-			(unsigned char *) raw_surface,
-			CAIRO_FORMAT_ARGB32,
+	Display *dpy=(Display *) display;
+	cairo_surface_t *surface = cairo_xlib_surface_create(
+			(Display *) display,
+			(Window) NUM2ULONG(screen),
+	                DefaultVisual(dpy,DefaultScreen(dpy)),
 			width,
-			height,
-			stride);
+			height);
 	cairo_t *cr=cairo_create(surface);
+
+/*
+        cairo_set_source_rgba(cr,0,0,0,1);
+        cairo_save(cr);
+        cairo_move_to(cr,100,100);
+        cairo_select_font_face(cr,"Sans",0,0);
+        cairo_set_font_size(cr,25);
+        cairo_show_text(cr,"Hello world");
+        cairo_restore(cr);
+*/
+	XFlush(dpy);
+
+
 	return (VALUE) cr;
 }
 
-void Init_lrenderCreateCairoContext()
+void Init_createCairoContext()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
-	rb_define_singleton_method(cLRender,"createCairoContext",createCairoContext,3);
+	rb_define_singleton_method(cLRender,"createCairoContext",createCairoContext,4);
 }

@@ -19,7 +19,7 @@
  *
  */
 
-#ifndef LRENDER_UPDATE_SDL_SURFACE_H
-#define LRENDER_UPDATE_SDL_SURFACE_H
-static VALUE displayVirtualScreen(VALUE self, VALUE virtualScreen, VALUE realScreen);
+#ifndef LRENDER_OPEN_DISPLAY_H
+#define LRENDER_OPEN_DISPLAY_H
+static VALUE openDisplay(VALUE self);
 #endif

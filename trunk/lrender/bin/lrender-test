@@ -17,17 +17,17 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-#!/usr/bin/ruby1.8 -w
+#!/usr/bin/ruby -w
 
 require 'rubygems'
 require_gem 'lrender'
 
-screen=LRenderScreen.new(640,480)
-vScreen=LRenderVirtualScreen.new(640,480)
-vScreen2=LRenderVirtualScreen.new(640,480)
-vScreen3=LRenderVirtualScreen.new(640,480)
-vScreen4=LRenderVirtualScreen.new(640,480)
-vScreen5=LRenderVirtualScreen.new(640,480)
+screen=LRenderScreen.new(800,600)
+vScreen=LRenderVirtualScreen.new(800,600)
+vScreen2=LRenderVirtualScreen.new(800,600)
+vScreen3=LRenderVirtualScreen.new(800,600)
+vScreen4=LRenderVirtualScreen.new(800,600)
+vScreen5=LRenderVirtualScreen.new(800,600)
 
 screen.virtualScreens << vScreen
 screen.virtualScreens << vScreen2

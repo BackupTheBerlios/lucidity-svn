@@ -21,7 +21,7 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/setPathOptions.h"
@@ -92,7 +92,7 @@ static VALUE setPathOptions(VALUE self, VALUE cr_object, VALUE path_object)
 	cairo_set_line_width(cr,width);
 	return Qnil;
 }
-void Init_lrenderSetPathOptions()
+void Init_setPathOptions()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"setPathOptions",setPathOptions,2);

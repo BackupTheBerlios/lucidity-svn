@@ -21,5 +21,5 @@
 
 #ifndef LRENDER_SET_CAIRO_CONTEXT_H
 #define LRENDER_SET_CAIRO_CONTEXT_H
-static VALUE setCairoContext(VALUE self, VALUE cr_object, VALUE other_object);
+static VALUE setCairoContext(VALUE self, VALUE cr, VALUE object);
 #endif

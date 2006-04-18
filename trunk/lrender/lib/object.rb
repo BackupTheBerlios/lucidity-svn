@@ -33,7 +33,7 @@ class LRenderObject
 		@blue=0
 		@alpha=1
 	end
-	def render(raw_surface,region,cr,screen)
+	def render(region,screen)
 		@antiAlias=screen.antiAlias unless @antiAlias
                 @width=screen.width * region.width
                 @height=screen.height * region.height

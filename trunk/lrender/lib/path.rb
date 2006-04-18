@@ -53,14 +53,13 @@ class LRenderPath < LRenderObject
 		@fillAlpha=1
 	end
 
-	def render(raw_surface,region,cr,screen)
-		super(raw_surface,region,cr,screen)
+	def render(region,cr,screen)
+		super(region,screen)
 		LRender.setCairoContext(cr,self)
 		LRender.setPathOptions(cr,self)
 		@objects.each { |obj|
 			obj.render(cr,@width,@height)
 		}
 		LRender.finalizePath(cr,self)
-		LRender.updateSDLSurface(screen,@width,@height,raw_surface)
 	end
 end

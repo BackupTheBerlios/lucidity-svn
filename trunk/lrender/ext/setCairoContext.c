@@ -21,7 +21,7 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/setCairoContext.h"
@@ -66,9 +66,17 @@ static VALUE setCairoContext(VALUE self, VALUE cr_object, VALUE other_object)
 
         cairo_save(cr);
         cairo_move_to(cr,x,y);
+//
+/*
+        cairo_select_font_face(cr,"Sans",0,0);
+        cairo_set_font_size(cr,25);
+        cairo_show_text(cr,"Hello world");
+        cairo_restore(cr);
+*/
+//
 	return Qnil;
 }
-void Init_lrenderSetCairoContext()
+void Init_setCairoContext()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"setCairoContext",setCairoContext,2);

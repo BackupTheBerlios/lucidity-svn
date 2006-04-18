@@ -30,25 +30,20 @@ class LRenderVirtualScreen
 		@width=width
 		@height=height
 		@regions=[]
-		@screen=LRender.createVirtualScreen(@width,@height)
 		@antiAlias=LRenderObject::AntiAlias::Subpixel
 	end
-	def draw
+	def draw(display,screen)
 		GC.disable
-		LRender.paintScreen(@screen)
 		@regions.each { |r|
 			@realWidth=(@width)*(r.width)
 		        @realHeight=(@height)*(r.height)
-			@rawSurface=LRender.createRawSurface(@realWidth,@realHeight)
-			@cr=LRender.createCairoContext(@rawSurface,@realWidth,@realHeight) 
+			@cr=LRender.createCairoContext(display,screen,@realWidth,@realHeight) 
 			r.objects.each { |o|
 				begin
-					o.render(@rawSurface,r,@cr,self) 
+					o.render(r,@cr,self) 
 				end 
 			} 
-			LRender.destroyRawSurface(@rawSurface)
 		}
 		GC.enable
-#		LRender.updateScreen(@screen)
 	end
 end

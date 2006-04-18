@@ -21,37 +21,19 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
-#include "include/createVirtualScreen.h"
+#include "include/openDisplay.h"
 
-static VALUE createVirtualScreen(VALUE self, VALUE width_object, VALUE height_object)
+static VALUE openDisplay(VALUE self)
 {
-	int width=NUM2INT(width_object);
-	int height=NUM2INT(height_object);
-
-	SDL_Surface *virtualScreen;
-	virtualScreen=SDL_CreateRGBSurface(
-			SDL_HWSURFACE /*| SDL_SRCCOLORKEY | SDL_SRCALPHA*/,
-			width,
-			height,
-			32,
-			0x00ff0000,0x0000ff00,0x000000ff,0xff000000);
-
-	if (virtualScreen==NULL)
-		virtualScreen=SDL_CreateRGBSurface(
-				SDL_SWSURFACE | SDL_SRCCOLORKEY | SDL_SRCALPHA,
-				width,
-				height,
-				32,
-				0x00ff0000,0x0000ff00,0x000000ff,0xff000000);
-
-	return (VALUE) virtualScreen;
+	Display *dpy=XOpenDisplay(NULL);
+	return (VALUE) dpy;
 }
 
-void Init_lrenderCreateVirtualScreen()
+void Init_openDisplay()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
-	rb_define_singleton_method(cLRender,"createVirtualScreen",createVirtualScreen,2);
+	rb_define_singleton_method(cLRender,"openDisplay",openDisplay,0);
 }

@@ -31,12 +31,11 @@ class LRenderText < LRenderObject
 		@italic=false
 		@oblique=false
 	end
-	def render(raw_surface,region,cr,screen)
-		super(raw_surface,region,cr,screen)
+	def render(region,cr,screen)
+		super(region,screen)
 		@realSize=@size*@height
 		LRender.setCairoContext(cr,self)
 		LRender.drawText(self,cr)
-		LRender.updateSDLSurface(screen,@width,@height,raw_surface)
 	end
 	def italic=(value)
 		begin

@@ -21,5 +21,5 @@
 
 #ifndef LRENDER_PAINT_SCREEN_H
 #define LRENDER_PAINT_SCREEN_H
-static VALUE paintScreen(VALUE self, VALUE screen);
+static VALUE paintScreen(VALUE self, VALUE display, VALUE screen);
 #endif

@@ -20,7 +20,6 @@
 require 'virtualscreen'
 require 'region'
 require 'text'
-require 'line'
 require 'lrender.so'
 
 class LRenderScreen
@@ -31,13 +30,12 @@ class LRenderScreen
 		@height=height
 		@virtualScreens=[]
 		@defaultScreen=nil
-		@screen=LRender.createScreen(@width,@height)
+		@display=LRender.openDisplay()
+		@screen=LRender.createScreen(@display, @width,@height)
 	end
 	def draw
-		@virtualScreens.each { |vScreen|
-			vScreen.draw
-		}
-		LRender.displayVirtualScreen(@defaultScreen.screen,@screen)
-		LRender.updateScreen(@screen)
+		LRender.paintScreen(@display,@screen)
+		@defaultScreen.draw(@display,@screen)
+		LRender.updateScreen(@display)
 	end
 end

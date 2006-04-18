@@ -21,7 +21,7 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/drawText.h"
@@ -57,7 +57,7 @@ static VALUE drawText(VALUE self,VALUE text,VALUE cr_object)
 	return Qnil;
 }
 
-void Init_lrenderDrawText()
+void Init_drawText()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"drawText",drawText,2);

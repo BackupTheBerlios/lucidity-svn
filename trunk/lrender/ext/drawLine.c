@@ -21,7 +21,7 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/drawLine.h"
@@ -40,7 +40,7 @@ static VALUE drawLine(VALUE self,VALUE line,VALUE cr_object)
 	return Qnil;
 }
 
-void Init_lrenderDrawLine()
+void Init_drawLine()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"drawLine",drawLine,2);

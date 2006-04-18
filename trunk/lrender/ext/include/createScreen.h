@@ -21,5 +21,5 @@
 
 #ifndef LRENDER_CREATE_SCREEN_H
 #define LRENDER_CREATE_SCREEN_H
-static VALUE createScreen(VALUE self, VALUE width, VALUE height);
+static VALUE createScreen(VALUE self, VALUE display, VALUE width, VALUE height);
 #endif

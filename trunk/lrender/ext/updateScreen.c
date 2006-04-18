@@ -21,17 +21,17 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/updateScreen.h"
-static VALUE updateScreen(VALUE self, VALUE screen_object)
+static VALUE updateScreen(VALUE self, VALUE display)
 {
-	SDL_Flip((SDL_Surface *)screen_object);
+	XFlush((Display *) display);
 	return Qnil;
 }
 
-void Init_lrenderUpdateScreen()
+void Init_updateScreen()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
 	rb_define_singleton_method(cLRender,"updateScreen",updateScreen,1);

@@ -21,5 +21,5 @@
 
 #ifndef LRENDER_UPDATE_SCREEN_H
 #define LRENDER_UPDATE_SCREEN_H
-static VALUE updateScreen(VALUE self, VALUE screen);
+static VALUE updateScreen(VALUE self, VALUE display);
 #endif

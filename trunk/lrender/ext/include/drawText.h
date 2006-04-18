@@ -19,7 +19,7 @@
  *
  */
 
-#ifndef LRENDER_DRAW_LINE_H
-#define LRENDER_DRAW_LINE_H
-static VALUE drawText(VALUE self,VALUE text,VALUE cr);
+#ifndef LRENDER_DRAW_TEXT_H
+#define LRENDER_DRAW_TEXT_H
+static VALUE drawText(VALUE self, VALUE text, VALUE cr);
 #endif

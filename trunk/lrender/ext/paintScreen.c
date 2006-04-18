@@ -21,19 +21,20 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
 #include "lrender.h"
 #include "include/paintScreen.h"
 
-static VALUE paintScreen(VALUE self, VALUE screen)
+static VALUE paintScreen(VALUE self, VALUE display, VALUE screen)
 {
-	SDL_FillRect((SDL_Surface *) screen,NULL,
-			SDL_MapRGB(((SDL_Surface *)screen)->format,255,255,255));
+	Window w=(Window ) NUM2ULONG(screen);
+	Display *dpy=(Display *) display;
+	XClearWindow(dpy,w);
 	return Qnil;
 }
-void Init_lrenderPaintScreen()
+void Init_paintScreen()
 {
 	cLRender=rb_define_class("LRender",rb_cObject);
-	rb_define_singleton_method(cLRender,"paintScreen",paintScreen,1);
+	rb_define_singleton_method(cLRender,"paintScreen",paintScreen,2);
 }

@@ -21,5 +21,5 @@
 
 #ifndef LRENDER_CREATE_CAIRO_CONTEXT_H
 #define LRENDER_CREATE_CAIRO_CONTEXT_H
-static VALUE createCairoContext(VALUE self, VALUE raw_surface, VALUE width, VALUE height);
+static VALUE createCairoContext(VALUE self, VALUE display, VALUE screen, VALUE width, VALUE height);
 #endif

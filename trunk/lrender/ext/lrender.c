@@ -21,37 +21,37 @@
 
 #include <ruby.h>
 #include <cairo.h>
-#include <SDL/SDL.h>
+#include <cairo-xlib.h>
 
-extern void Init_lrenderDisplayVirtualScreen();
-extern void Init_lrenderCreateScreen();
-extern void Init_lrenderCreateVirtualScreen();
-extern void Init_lrenderUpdateScreen();
-extern void Init_lrenderPaintScreen();
-extern void Init_lrenderCreateRawSurface();
-extern void Init_lrenderDestroyRawSurface();
-extern void Init_lrenderCreateCairoContext();
-extern void Init_lrenderSetCairoContext();
-extern void Init_lrenderSetPathOptions();
-extern void Init_lrenderFinalizePath();
-extern void Init_lrenderDrawText();
-extern void Init_lrenderDrawLine();
-extern void Init_lrenderUpdateSDLSurface();
+extern void Init_openDisplay();
+
+extern void Init_createScreen();
+extern void Init_updateScreen();
+extern void Init_paintScreen();
+
+extern void Init_createCairoContext();
+extern void Init_setCairoContext();
+
+extern void Init_drawText();
+extern void Init_drawLine();
+
+extern void Init_setPathOptions();
+extern void Init_finalizePath();
 
 void Init_lrender()
 {
-	Init_lrenderDisplayVirtualScreen();
-	Init_lrenderCreateScreen();
-	Init_lrenderCreateVirtualScreen();
-	Init_lrenderUpdateScreen();
-	Init_lrenderPaintScreen();
-	Init_lrenderCreateRawSurface();
-	Init_lrenderDestroyRawSurface();
-	Init_lrenderCreateCairoContext();
-	Init_lrenderSetCairoContext();
-	Init_lrenderSetPathOptions();
-	Init_lrenderFinalizePath();
-	Init_lrenderDrawText();
-	Init_lrenderDrawLine();
-	Init_lrenderUpdateSDLSurface();
+	Init_openDisplay();
+
+	Init_createScreen();
+	Init_updateScreen();
+	Init_paintScreen();
+
+	Init_createCairoContext();
+	Init_setCairoContext();
+
+	Init_drawText();
+	Init_drawLine();
+
+	Init_setPathOptions();
+	Init_finalizePath();
 }
