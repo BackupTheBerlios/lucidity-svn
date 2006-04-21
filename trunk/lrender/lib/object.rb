@@ -17,21 +17,20 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
+require 'lrender'
 class LRenderObject
 	AntiAlias=Class.new
 	AntiAlias::Default=0	
 	AntiAlias::None=1
 	AntiAlias::Gray=2
 	AntiAlias::Subpixel=3
-	attr_reader :x, :y, :red, :green, :blue, :alpha, :antiAlias
-	attr_writer :x, :y, :red, :green, :blue, :alpha, :antiAlias
+	attr_accessor :x, :y, :fill, :stroke
 	def initialize(x,y)
 		@x=x
 		@y=y
-		@red=0
-		@green=0
-		@blue=0
-		@alpha=1
+		@stroke=LColor.new(LColor::Black)
+		@fill=LColor.new(LColor::Black)	
+		@pattern=nil
 	end
 	def render(region,screen)
 		@antiAlias=screen.antiAlias unless @antiAlias

@@ -28,35 +28,30 @@ def test5(screen,region,txt)
 	region.objects << p
 
 	l1=LRenderLine.new(0.4,0.6)
-	p.red=1
+	p.stroke=LColor.new(LColor::Red)
 	p.objects << l1
 	screen.draw
 	sleep 2
 
 	l2=LRenderLine.new(0.6,0.6)
-	p.red=0
-	p.green=1
+	p.stroke=LColor.new(LColor::Green)
 	p.objects << l2
 	screen.draw
 	sleep 2
 
 	l3=LRenderLine.new(0.6,0.4)
-	p.green=0
-	p.blue=1
+	p.stroke=LColor.new(LColor::Blue)
 	p.objects << l3
 	screen.draw
 	sleep 2
 	
 	p.closed=true
-	p.blue=0
-	p.alpha=0.25
+	p.stroke=LColor.new(LColor::Black)
+	p.stroke.alpha=0.25
 	screen.draw
 	sleep 2
 
-	p.blue=0.4
-	p.green=0.75
-	p.red=0.2
-	p.alpha=1
+	p.stroke=LColor.new(0.4,0.75,0.2)
 	screen.draw
 	sleep 2
 

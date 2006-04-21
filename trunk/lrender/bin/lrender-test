@@ -107,6 +107,8 @@ screen.defaultScreen=vScreen6
 test6(screen,reg6,txt6)
 sleep 2
 
+screen.defaultScreen=vScreen
+
 txt.text="(C) Copyright Eugen Minciu 2006"
 screen.draw
 sleep(2)

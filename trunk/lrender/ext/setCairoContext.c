@@ -30,10 +30,13 @@ static VALUE setCairoContext(VALUE self, VALUE cr_object, VALUE other_object)
         VALUE x_object=rb_iv_get(other_object,"@realX");
         VALUE y_object=rb_iv_get(other_object,"@realY");
 
-        VALUE red_object=rb_iv_get(other_object,"@red");
-        VALUE green_object=rb_iv_get(other_object,"@green");
-        VALUE blue_object=rb_iv_get(other_object,"@blue");
-        VALUE alpha_object=rb_iv_get(other_object,"@alpha");
+	VALUE stroke_object=rb_iv_get(other_object,"@stroke");
+
+        VALUE red_object=rb_iv_get(stroke_object,"@red");
+        VALUE green_object=rb_iv_get(stroke_object,"@green");
+        VALUE blue_object=rb_iv_get(stroke_object,"@blue");
+        VALUE alpha_object=rb_iv_get(stroke_object,"@alpha");
+
 	VALUE anti_alias_object=rb_iv_get(other_object,"@antiAlias");
 
         int x=NUM2INT(x_object);
@@ -66,14 +69,6 @@ static VALUE setCairoContext(VALUE self, VALUE cr_object, VALUE other_object)
 
         cairo_save(cr);
         cairo_move_to(cr,x,y);
-//
-/*
-        cairo_select_font_face(cr,"Sans",0,0);
-        cairo_set_font_size(cr,25);
-        cairo_show_text(cr,"Hello world");
-        cairo_restore(cr);
-*/
-//
 	return Qnil;
 }
 void Init_setCairoContext()

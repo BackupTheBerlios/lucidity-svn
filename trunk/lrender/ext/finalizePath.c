@@ -32,10 +32,12 @@ static VALUE finalizePath(VALUE self, VALUE cr_object, VALUE path_object)
 	VALUE close_path=rb_iv_get(path_object,"@closed");
 	VALUE fill_path=rb_iv_get(path_object,"@filled");
 
-	VALUE fillRed_object=rb_iv_get(path_object,"@fillRed");
-	VALUE fillGreen_object=rb_iv_get(path_object,"@fillGreen");
-	VALUE fillBlue_object=rb_iv_get(path_object,"@fillBlue");
-	VALUE fillAlpha_object=rb_iv_get(path_object,"@fillAlpha");
+	VALUE fill_object=rb_iv_get(path_object,"@fill");
+
+	VALUE fillRed_object=rb_iv_get(fill_object,"@red");
+	VALUE fillGreen_object=rb_iv_get(fill_object,"@green");
+	VALUE fillBlue_object=rb_iv_get(fill_object,"@blue");
+	VALUE fillAlpha_object=rb_iv_get(fill_object,"@alpha");
 
 	double fillRed=NUM2DBL(fillRed_object);
 	double fillGreen=NUM2DBL(fillGreen_object);

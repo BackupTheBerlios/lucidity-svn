@@ -40,15 +40,6 @@ static VALUE createCairoContext(VALUE self, VALUE display, VALUE screen, VALUE w
 			height);
 	cairo_t *cr=cairo_create(surface);
 
-/*
-        cairo_set_source_rgba(cr,0,0,0,1);
-        cairo_save(cr);
-        cairo_move_to(cr,100,100);
-        cairo_select_font_face(cr,"Sans",0,0);
-        cairo_set_font_size(cr,25);
-        cairo_show_text(cr,"Hello world");
-        cairo_restore(cr);
-*/
 	XFlush(dpy);
 
 

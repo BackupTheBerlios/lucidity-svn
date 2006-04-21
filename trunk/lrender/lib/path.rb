@@ -34,8 +34,7 @@ class LRenderPath < LRenderObject
 	LineJoin::Miter=0
 	LineJoin::Round=1
 	LineJoin::Bevel=2
-	attr_reader :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha, :dash
-	attr_writer :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :fillRed, :fillBlue, :fillGreen, :fillAlpha, :dash
+	attr_accessor :lineCap, :lineJoin, :fillRule, :objects, :lineWidth, :closed, :filled, :dash
 
 	def initialize(x,y)
 		super(x,y)
@@ -46,11 +45,6 @@ class LRenderPath < LRenderObject
 		@lineWidth=5
 		@closed=false
 		@filled=false
-
-		@fillRed=0
-		@fillGreen=0
-		@fillBlue=0
-		@fillAlpha=1
 	end
 
 	def render(region,cr,screen)

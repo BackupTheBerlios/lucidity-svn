@@ -28,15 +28,14 @@ def test6(screen,region,txt)
 	region.objects << p
 
 	l1=LRenderCurve.new(0.2,0.1,0.3,0.4,0.5,0.4)
-	p.red=1
+	p.stroke=LColor.new(LColor::Red)
 	p.objects << l1
 	screen.draw
 	sleep 2
 
-
+	
 	p.closed=true
-	p.blue=0
-	p.alpha=0.25
+	p.filled=true
 	screen.draw
 	sleep 2
 
