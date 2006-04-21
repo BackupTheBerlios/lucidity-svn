@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 #
 # Copyright (C) 2006 Eugen Minciu
 #
@@ -17,7 +18,6 @@
 # along with Lucidity; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #
-#!/usr/bin/ruby -w
 
 require 'rubygems'
 require_gem 'lrender'
@@ -110,6 +110,7 @@ sleep 2
 screen.defaultScreen=vScreen
 
 txt.text="(C) Copyright Eugen Minciu 2006"
+txt.stroke=LColor.new(LColor::Black)
 screen.draw
 sleep(2)
 
